@@ -2,7 +2,7 @@
   "entityName":"SC_Job",
   "entityTable":"DD_Job",
   "entityFields":[
-    { "fieldName":"AAA1", "fieldType":"VARCHAR", "fieldDesc":"DDCC" },
+    { "fieldName":"AAA14", "fieldType":"VARCHAR", "fieldDesc":"DDCC" },
     { "fieldName":"AAA2", "fieldType":"VARCHAR", "fieldDesc":"DDCC" },
     { "fieldName":"Policy", "fieldType":"Policy", "fieldDesc":"BBBB" },
     { "fieldName":"AAA4", "fieldType":"Type1", "fieldDesc":"CCCC" },
