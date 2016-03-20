@@ -3,7 +3,7 @@
   "entityTable":"XX_Claim",
   "entityFields":[
     { "fieldName":"AAA155", "fieldType":"VARCHAR", "fieldDesc":"DDCC" },
-    { "fieldName":"AAA2", "fieldType":"VARCHAR", "fieldDesc":"DDCC" },
+    { "fieldName":"AAA24", "fieldType":"VARCHAR", "fieldDesc":"DDCC" },
     { "fieldName":"Policy", "fieldType":"Policy", "fieldDesc":"BBBB" },
     { "fieldName":"AAA4", "fieldType":"Type1", "fieldDesc":"CCCC" },
     { "fieldName":"AAA5", "fieldType":"Type1", "fieldDesc":"FFFF" },
