@@ -13,10 +13,10 @@ var entityApp = angular.module('entityApp', ['ngTable', 'ngSanitize']);
                 $scope.entitiesRangeArray = response.entitiesRange.toString().split(',');
 
                 $scope.entitiesTable = new ngTableParams(
-                    { page: 1, count: 20 },
+                    { page: 1, count: 500 },
                     {
                         total: $scope.entityFields.length,
-                        counts: [10,200], // No items per page
+                        counts: [], // No items per page
                         getData: function ($defer, params) {
                             $scope.entityData = params.sorting() ?
                                 $filter('orderBy')($scope.entityFields, params.orderBy()) : $scope.entityFields;
