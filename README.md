@@ -8,7 +8,7 @@ Tech stack:
 >NodeJS    
 >Express (>=4.0)  
 >AngularJS (1.5)   
->Angular sanitize (1.5)
+>Angular sanitize (1.5)    
 >Bootswatch (Based on bootstrap)    
 >Jquery (1.11)   
 >ng-table(1.0.0-beta9)   
@@ -35,7 +35,7 @@ cd modelview
 npm start
 ```
 
-Open http://localhost:3000/ in browser.
+Open http://localhost:3000/ in any browsers.
 
 
 
