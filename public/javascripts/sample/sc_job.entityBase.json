@@ -1,0 +1,31 @@
+{
+  "entityName":"SC_Job",
+  "entityTable":"SC_Job",
+  "entityFields":[
+    { "fieldName":"JobName", "fieldType":"VARCHAR", "fieldDesc":"The job name" },
+    { "fieldName":"JobStatus", "fieldType":"VARCHAR", "fieldDesc":"The job status" },
+    { "fieldName":"Claim", "fieldType":"Claim", "fieldDesc":"The clam" },
+    { "fieldName":"SC_Incident", "fieldType":"Incident", "fieldDesc":"The claim incident" },
+    { "fieldName":"SC_LossType", "fieldType":"LossType", "fieldDesc":"The claim loss type" },
+    { "fieldName":"SC_LossCause", "fieldType":"LossCause", "fieldDesc":"The claim loss cause" },
+    { "fieldName":"SC_SubLossCause", "fieldType":"LossCause", "fieldDesc":"The claim sub loss cause" },
+    { "fieldName":"CreateTime", "fieldType":"DATETIME", "fieldDesc":"The claim create time" },
+    { "fieldName":"FaultRating", "fieldType":"FaultRating", "fieldDesc":"The claim fault rating" },
+    { "fieldName":"SC_History", "fieldType":"History", "fieldDesc":"The claim history" },
+    { "fieldName":"SC_MainContact", "fieldType":"Contact", "fieldDesc":"The claim contact" },
+    { "fieldName":"JobTime", "fieldType":"DATETIME", "fieldDesc":"The claim time" },
+    { "fieldName":"ClaimStatus", "fieldType":"VARCHAR", "fieldDesc":"The claim status" },
+    { "fieldName":"SC_Incident", "fieldType":"Incident", "fieldDesc":"The claim incident" },
+    { "fieldName":"SC_LossType", "fieldType":"LossType", "fieldDesc":"The claim loss type" },
+    { "fieldName":"SC_LossCause", "fieldType":"LossCause", "fieldDesc":"The claim loss cause" },
+    { "fieldName":"SC_SubLossCause", "fieldType":"LossCause", "fieldDesc":"The claim sub loss cause" },
+    { "fieldName":"CreateTime", "fieldType":"DATETIME", "fieldDesc":"The claim create time" },
+    { "fieldName":"FaultRating", "fieldType":"FaultRating", "fieldDesc":"The claim fault rating" },
+    { "fieldName":"SC_History", "fieldType":"History", "fieldDesc":"The claim history" },
+    { "fieldName":"SC_MainContact", "fieldType":"Contact", "fieldDesc":"The claim contact" }
+  ],
+  "bizView":"<p>Provides cover for loss or damage to your investment property with inclusions such as loss of rent cover following an insured event and cover for most types of flood and water damage as standard.</p><p>Provides cover for strata, body corporate or community titled residential buildings at the insured address including common areas such as garages, pathways and swimming pools. You can also add cover for common contents contained within the common areas of your building.</p>",
+  "entityPath":"Claim -> SC_Job",
+  "entityMock":"<pre><code class='javascript'>(function() {\r\n  \"use strict\";\r\n  var app = angular.module(\"myApp\", [\"ngTable\", \"ngTableDemos\"]);\r\n  app.controller(\"demoController\", demoController);\r\n  demoController.$inject = [\"NgTableParams\", \"ngTableSimpleMediumList\"];\r\n  function demoController(NgTableParams, simpleList) {\r\n    this.defaultConfigTableParams = new NgTableParams({}, { dataset: simpleList});\r\n    this.customConfigParams = createUsingFullOptions();\r\n\r\n    function createUsingFullOptions() {\r\n      var initialParams = {\r\n        count: 5 // initial page size\r\n      };\r\n      return new NgTableParams(initialParams, initialSettings);\r\n    }\r\n  }\r\n})();</code></pre>",
+  "entitiesRange":"Claim,Policy,SC_Job"
+}
