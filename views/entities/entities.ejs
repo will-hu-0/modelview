@@ -1,11 +1,27 @@
 <% include ../header.ejs %>
-<% include ../functions/navbar.ejs %>
-<ul class="breadcrumb">
-    <li><a href="#">Home</a></li>
-    <li><a href="#">Entities</a></li>
-    <li class="active">Claim</li>
-</ul>
-<div class="container-fluid">
 
+<div ng-controller="entitiesController" ng-init="loadEntities()">
+    <% include ../functions/navbar.ejs %>
+    <ul class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li class="active">Entities</li>
+    </ul>
+    <div class="row">
+        <div class="col-xs-3 col-lg-2" ng-repeat="entity in entities">
+            <p>
+                <div class="half-unit">
+                    <dtitle title="Owner">{{entity.owner}}</dtitle>
+                    <hr>
+                    <div class="cont">
+                        <p><bold><a href="../entities/{{entity.entityName}}">{{entity.entityName}}</a></bold></p>
+                        <p>
+                            <img src="../images/up-small.png" title="Viewd" alt="Viewd"> {{entity.views}} |
+                            <img src="../images/down-small.png" title="Liked" alt="Liked"> {{entity.like}}
+                        </p>
+                    </div>
+                </div>
+            </p>
+        </div>
+    </div>
 </div>
 <% include ../footer.ejs %>

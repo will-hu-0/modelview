@@ -8,6 +8,13 @@ function viewEntity(req, res){
     });
 }
 
+function viewEntities(req, res) {
+    return res.render('entities/entities', {
+        title: "ALL ENTITIES" + " | ViewModel"
+    });
+}
+
+router.get('/', viewEntities);
 router.get('/:name', viewEntity);
 router.post('/:name', viewEntity);
 

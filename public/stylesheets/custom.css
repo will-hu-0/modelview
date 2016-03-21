@@ -1,6 +1,6 @@
 body {
   padding: 50px;
-  font: 15px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 15px "proxima-nova","Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 .bizView-header {
@@ -9,6 +9,7 @@ body {
   border-bottom: 1px solid #cccccc;
 }
 
+/* Global override */
 .btn-default {
   color: #ffffff;
   background-color: #4F4F4F;
@@ -30,6 +31,7 @@ body {
   font-weight: bold;
 }
 
+/* View entity page */
 .contentBlock {
   min-height: 20px;
   padding: 19px;
@@ -51,4 +53,47 @@ body {
 .contentBlock-sm {
   padding: 9px;
   border-radius: 3px;
+}
+
+/* Entities page */
+/* Block */
+.half-unit {
+  margin-bottom: 30px;
+  padding-bottom: 4px;
+  border: 1px solid #383737;
+  background-image: url('../images/sep-half.png');
+  background-color: #3d3d3d;
+  color: white;
+  height: 130px;
+}
+
+.half-unit dtitle {
+  font-size: 13px;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 8px;
+  padding: 2px;
+  height: inherit;
+}
+
+.half-unit hr {
+  border: 0;
+  border-top: 1px solid #151515;
+  border-top-style: dashed;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.cont {
+  text-align: center;
+  text-transform: uppercase;
+  margin-top: 20px;
+}
+
+.half-unit bold {
+  font-family: 'Open Sans',sans-serif;
+  font-size: 26px;
+  font-weight: bold;
+  color: #fff;
+  vertical-align: middle;
 }

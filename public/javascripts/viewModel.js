@@ -2,6 +2,7 @@
 var entityApp = angular.module('entityApp', ['ngTable', 'ngSanitize']);
 
 (function() {
+    // controller for entity view page
     entityApp.controller('entityController', function($scope, $http, $filter, $sce, ngTableParams) {
         $scope.loadEntity = function(entityName) {
             var entityNameLowcase = entityName.toLowerCase();
@@ -39,20 +40,40 @@ var entityApp = angular.module('entityApp', ['ngTable', 'ngSanitize']);
 
             })
         }
-
         $scope.searchEntity = function() {
-            if ($('#txtQueryEntity').val() == '') {
-                $('#txtQueryEntity').val('Put something here?')
-            } else {
-                $(location).attr('href', '/Entities/' + $('#txtQueryEntity').val());
-            }
+            search();
         };
-
-        $('#txtQueryEntity').keydown(function(event) {
-            if (Event.keyCode == 13) {
-                alert('123');
-            }
-        });
     });
 
+    // controller for entities page
+    entityApp.controller('entitiesController', function($scope, $http) {
+        $scope.loadEntities = function() {
+            var entitiesUrl = "/javascripts/sample/entities.json";
+            $http.get(entitiesUrl).success( function(response) {
+                $scope.entities = response.entities;
+            });
+        };
+
+        $scope.searchEntity = function() {
+            search();
+        };
+    });
+
+    $('#txtQueryEntity').keydown(function(event) {
+        if (event.keyCode == 13) {
+            search();
+        }
+    });
+
+    /* Define the onclick event of search textbox in the nav bar */
+    function search() {
+        if ($('#txtQueryEntity').val() == '') {
+            $('#txtQueryEntity').val('Put something here?')
+            $('#txtQueryEntity').click(function(){
+                $(this).val('');
+            })
+        } else {
+            $(location).attr('href', '/Entities/' + $('#txtQueryEntity').val());
+        }
+    }
 })();
