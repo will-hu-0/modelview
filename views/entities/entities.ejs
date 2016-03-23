@@ -7,17 +7,18 @@
 <div ng-controller="entitiesController" ng-init="loadEntities()">
     <% include ../functions/navbar.ejs %>
     <ul class="breadcrumb">
-        <li><a href="#">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li class="active">Entities</li>
     </ul>
     <div class="row">
         <div class="col-xs-3 col-lg-2" ng-repeat="entity in entities | orderBy:'-views'">
             <p>
-                <div class="half-unit">
+                <div class="half-unit" ng-class="{'half-unit-hover':hovering}" ng-mouseover="hovering=true"
+                     ng-mouseleave="hovering=false" ng-click="go(entity.entityName)">
                     <dtitle title="Owner">{{entity.owner}}</dtitle>
                     <hr>
                     <div class="cont">
-                        <p><bold><a href="../entities/{{entity.entityName}}">{{entity.entityName}}</a></bold></p>
+                        <p><bold>{{entity.entityName}}</bold></p>
                         <p>
                             <div class="progress">
                                 <div class="progress-bar" role="progressbar" ng-style="{'width': entity.views*100/380 + '%' }">

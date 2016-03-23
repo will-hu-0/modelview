@@ -47,17 +47,19 @@ var entityApp = angular.module('entityApp', ['ngTable', 'ngSanitize']);
     });
 
     // controller for entities page
-    entityApp.controller('entitiesController', function($scope, $http) {
+    entityApp.controller('entitiesController', function($scope, $http, $location) {
         $scope.loadEntities = function() {
             var entitiesUrl = "/javascripts/sample/entities.json";
             $http.get(entitiesUrl).success( function(response) {
                 $scope.entities = response.entities;
                 var ArrViews = $.map(response.entities, function(data){ return data.views; });
                 $scope.maxViews = Math.max.apply(Math, ArrViews);
-                console.log($scope.maxViews);
             });
         };
 
+        $scope.go = function (path) {
+            $(location).attr('href', path);
+        };
         $scope.searchEntity = function() {
             search();
         };
@@ -82,25 +84,12 @@ var entityApp = angular.module('entityApp', ['ngTable', 'ngSanitize']);
     }
 
     $('#navSetDark').click (function() {
-        $.cookie('modelviewTheme','darkly');
+        $.cookie('modelviewTheme','darkly', { expires: 7, path: '/' });
         window.location.reload();
     });
     $('#navSetLight').click (function() {
-        $.cookie('modelviewTheme','united');
+        $.cookie('modelviewTheme','united', { expires: 7, path: '/' });
         window.location.reload();
     })
-
-    //get the highest value in array for specific index
-    //usage: getHighestVal(data,index)
-    //data = array
-    //index = index of array to analyse
-    function getHighestVal(data, index)
-    {
-        $.each(data, function (i,v) {
-            thisVal = v[index];
-            maxV = (maxV < thisVal) ? thisVal : maxV;
-        });
-        return maxV;
-    }
 
 })();

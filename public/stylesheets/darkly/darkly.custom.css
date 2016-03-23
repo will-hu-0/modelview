@@ -61,6 +61,7 @@ body {
 /* Entities page */
 /* Block */
 .half-unit {
+  transition: background-color 0.4s ease;
   margin-bottom: 30px;
   padding-bottom: 4px;
   border: 1px solid #383737;
@@ -68,6 +69,18 @@ body {
   background-color: #3d3d3d;
   color: white;
   height: 130px;
+  cursor: pointer;
+}
+
+.half-unit-hover {
+  margin-bottom: 30px;
+  padding-bottom: 4px;
+  border: 1px solid #2b2b2b;
+  background-image: url('/images/sep-half.png');
+  background-color: #2b2b2b;
+  color: white;
+  height: 130px;
+  cursor: pointer;
 }
 
 .half-unit dtitle {
@@ -94,10 +107,19 @@ body {
 }
 
 .half-unit bold {
+  transition: color 0.4s ease;
   font-family: 'Open Sans',sans-serif;
   font-size: 26px;
   font-weight: bold;
   color: #fff;
+  vertical-align: middle;
+}
+
+.half-unit-hover bold {
+  font-family: 'Open Sans',sans-serif;
+  font-size: 26px;
+  font-weight: bold;
+  color: #0ce3ac;
   vertical-align: middle;
 }
 
