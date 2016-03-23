@@ -18,7 +18,11 @@ Demo:
 -----
 Hosted on : [http://aami.nodejs.eatj.com/](http://aami.nodejs.eatj.com/).
 
-![](https://cloud.githubusercontent.com/assets/4235291/13921163/8600bbbc-efb1-11e5-969a-3489ee2d3faf.jpg)
+Entities page, the more contribution, the longer progress bar inside with the owner:
+![](https://cloud.githubusercontent.com/assets/4235291/13987860/705fbeae-f144-11e5-9313-e9310c27dc7f.jpg)
+
+May change theme:
+![](https://cloud.githubusercontent.com/assets/4235291/13987858/6fd90328-f144-11e5-81ab-797803a04a00.jpg)
 
 ![](https://cloud.githubusercontent.com/assets/4235291/13904756/fc2c1ad8-eee5-11e5-9387-ee3a3ee9346f.jpg)
 
