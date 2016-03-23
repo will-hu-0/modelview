@@ -1,4 +1,8 @@
-<% include header.ejs %>
+<% if (style==="darkly") { %>
+<% include ../header_darkly.ejs %>
+<% } else { %>
+<% include ../header_united.ejs %>
+<% } %>
 <div ng-controller="entityController">
 <% include functions/navbar.ejs %>
 </div>

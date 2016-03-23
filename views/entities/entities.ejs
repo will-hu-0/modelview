@@ -1,4 +1,8 @@
-<% include ../header.ejs %>
+<% if (style==="darkly") { %>
+<% include ../header_darkly.ejs %>
+<% } else { %>
+<% include ../header_united.ejs %>
+<% } %>
 
 <div ng-controller="entitiesController" ng-init="loadEntities()">
     <% include ../functions/navbar.ejs %>
@@ -7,7 +11,7 @@
         <li class="active">Entities</li>
     </ul>
     <div class="row">
-        <div class="col-xs-3 col-lg-2" ng-repeat="entity in entities">
+        <div class="col-xs-3 col-lg-2" ng-repeat="entity in entities | orderBy:'-views'">
             <p>
                 <div class="half-unit">
                     <dtitle title="Owner">{{entity.owner}}</dtitle>
@@ -15,8 +19,10 @@
                     <div class="cont">
                         <p><bold><a href="../entities/{{entity.entityName}}">{{entity.entityName}}</a></bold></p>
                         <p>
-                            <img src="../images/up-small.png" title="Viewd" alt="Viewd"> {{entity.views}} |
-                            <img src="../images/down-small.png" title="Liked" alt="Liked"> {{entity.like}}
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:{{entity.views*100/380}}%;"><span class="sr-only">60% Complete</span>
+                                </div>
+                            </div>
                         </p>
                     </div>
                 </div>

@@ -76,4 +76,14 @@ var entityApp = angular.module('entityApp', ['ngTable', 'ngSanitize']);
             $(location).attr('href', '/Entities/' + $('#txtQueryEntity').val());
         }
     }
+
+    $('#navSetDark').click (function() {
+        $.cookie('modelviewTheme','darkly');
+        window.location.reload();
+    });
+    $('#navSetLight').click (function() {
+        $.cookie('modelviewTheme','united');
+        window.location.reload();
+    })
+
 })();

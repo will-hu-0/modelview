@@ -26,6 +26,10 @@ body {
   margin-bottom: 15px;
 }
 
+.breadcrumb a{
+  color: #bf3e11;
+}
+
 .breadcrumb>.current {
   color: brown;
   font-weight: bold;
@@ -60,9 +64,9 @@ body {
 .half-unit {
   margin-bottom: 30px;
   padding-bottom: 4px;
-  border: 1px solid #383737;
-  background-image: url('../images/sep-half.png');
-  background-color: #3d3d3d;
+  border: 1px solid #f5f5f5;
+  background-image: url('/images/sep-half.png');
+  background-color: #f5f5f5;
   color: white;
   height: 130px;
 }
@@ -70,7 +74,7 @@ body {
 .half-unit dtitle {
   font-size: 13px;
   text-transform: uppercase;
-  color: #fff;
+  color: #000;
   margin: 8px;
   padding: 2px;
   height: inherit;
@@ -78,7 +82,7 @@ body {
 
 .half-unit hr {
   border: 0;
-  border-top: 1px solid #151515;
+  border-top: 1px solid #ccc;
   border-top-style: dashed;
   margin-top: 3px;
   margin-bottom: 3px;
@@ -88,12 +92,13 @@ body {
   text-align: center;
   text-transform: uppercase;
   margin-top: 20px;
+  color:#000
 }
 
 .half-unit bold {
   font-family: 'Open Sans',sans-serif;
   font-size: 26px;
   font-weight: bold;
-  color: #fff;
+  color: #000;
   vertical-align: middle;
 }

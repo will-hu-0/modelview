@@ -1,4 +1,8 @@
-<% include ../header.ejs %>
+<% if (style==="darkly") { %>
+<% include ../header_darkly.ejs %>
+<% } else { %>
+<% include ../header_united.ejs %>
+<% } %>
 <div ng-controller="entityController" ng-init="loadEntity('<%= entityName %>')">
     <% include ../functions/navbar.ejs %>
     <ul class="breadcrumb">
