@@ -100,3 +100,17 @@ body {
   color: #fff;
   vertical-align: middle;
 }
+
+.progress {
+  height: 18px;
+}
+
+/*NavBar*/
+#navSetDark {
+  color: #375a7f;
+  font-weight: bold;
+}
+#navSetLight {
+  color: #bf3e11;
+  font-weight: bold;
+}

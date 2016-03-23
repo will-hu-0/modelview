@@ -20,7 +20,8 @@
                         <p><bold><a href="../entities/{{entity.entityName}}">{{entity.entityName}}</a></bold></p>
                         <p>
                             <div class="progress">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" ng-style="{'width': entity.views*100/380}"><span class="sr-only">60% Complete</span></div>
+                                <div class="progress-bar" role="progressbar" ng-style="{'width': entity.views*100/380 + '%' }">
+                                </div>
                             </div>
                         </p>
                     </div>

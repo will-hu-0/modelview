@@ -39,7 +39,8 @@ var entityApp = angular.module('entityApp', ['ngTable', 'ngSanitize']);
                 });
 
             })
-        }
+        };
+
         $scope.searchEntity = function() {
             search();
         };
@@ -51,6 +52,9 @@ var entityApp = angular.module('entityApp', ['ngTable', 'ngSanitize']);
             var entitiesUrl = "/javascripts/sample/entities.json";
             $http.get(entitiesUrl).success( function(response) {
                 $scope.entities = response.entities;
+                var ArrViews = $.map(response.entities, function(data){ return data.views; });
+                $scope.maxViews = Math.max.apply(Math, ArrViews);
+                console.log($scope.maxViews);
             });
         };
 
@@ -85,5 +89,18 @@ var entityApp = angular.module('entityApp', ['ngTable', 'ngSanitize']);
         $.cookie('modelviewTheme','united');
         window.location.reload();
     })
+
+    //get the highest value in array for specific index
+    //usage: getHighestVal(data,index)
+    //data = array
+    //index = index of array to analyse
+    function getHighestVal(data, index)
+    {
+        $.each(data, function (i,v) {
+            thisVal = v[index];
+            maxV = (maxV < thisVal) ? thisVal : maxV;
+        });
+        return maxV;
+    }
 
 })();
