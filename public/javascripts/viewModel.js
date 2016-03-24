@@ -1,10 +1,15 @@
-// Define entityApp and controller
-var entityApp = angular.module('entityApp', ['ngTable', 'ngSanitize']);
-
 (function() {
+    // Define entityApp and controller
+    var entityApp = angular.module('entityApp', ['ngTable', 'ngSanitize','angular-loading-bar', 'ngAnimate'])
+        .config(function(cfpLoadingBarProvider) {
+            cfpLoadingBarProvider.includeSpinner = true;
+            cfpLoadingBarProvider.includeBar = true;
+        });
+
     // controller for entity view page
-    entityApp.controller('entityController', function($scope, $http, $filter, $sce, ngTableParams) {
+    entityApp.controller('entityController', function($scope, $http, $filter, $sce, ngTableParams, cfpLoadingBar) {
         $scope.loadEntity = function(entityName) {
+            cfpLoadingBar.start();
             var entityNameLowcase = entityName.toLowerCase();
             var entityBaseUrl = "/javascripts/sample/"+entityNameLowcase+".entityBase.json";
             $http.get(entityBaseUrl).success( function(response) {
@@ -35,9 +40,7 @@ var entityApp = angular.module('entityApp', ['ngTable', 'ngSanitize']);
                     $('pre code').each(function (i, block) {
                         hljs.highlightBlock(block);
                     });
-
                 });
-
             })
         };
 
@@ -47,7 +50,8 @@ var entityApp = angular.module('entityApp', ['ngTable', 'ngSanitize']);
     });
 
     // controller for entities page
-    entityApp.controller('entitiesController', function($scope, $http, $location) {
+    entityApp.controller('entitiesController', function($scope, $http, cfpLoadingBar) {
+        cfpLoadingBar.start()
         $scope.loadEntities = function() {
             var entitiesUrl = "/javascripts/sample/entities.json";
             $http.get(entitiesUrl).success( function(response) {
