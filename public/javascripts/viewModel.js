@@ -1,6 +1,6 @@
 (function() {
     // Define entityApp and controller
-    var entityApp = angular.module('entityApp', ['ngTable', 'ngSanitize','angular-loading-bar', 'ngAnimate'])
+    var entityApp = angular.module('entityApp', ['ngTable', 'ngSanitize','angular-loading-bar','ngAnimate','rzModule'])
         .config(function(cfpLoadingBarProvider) {
             cfpLoadingBarProvider.includeSpinner = true;
             cfpLoadingBarProvider.includeBar = true;
@@ -43,8 +43,7 @@
                 });
             })
         };
-
-        $scope.searchEntity = function() {
+        $scope.search = function() {
             search();
         };
     });
@@ -60,11 +59,69 @@
                 $scope.maxViews = Math.max.apply(Math, ArrViews);
             });
         };
-
-        $scope.go = function (path) {
-            $(location).attr('href', path);
+        $scope.search = function() {
+            search();
         };
-        $scope.searchEntity = function() {
+    });
+
+    // controller for view slide page
+    entityApp.controller('viewSlideController', function($scope, $http, cfpLoadingBar) {
+        cfpLoadingBar.start();
+        var stepCount = 0;
+        $scope.loadSlide = function(topic) {
+            var ltopic = topic.toLowerCase();
+            var slideUrl = "/javascripts/sample/"+ltopic+".json";
+            $http.get(slideUrl).success( function(response) {
+                $scope.topic = response.topic;
+                $scope.steps = response.steps;
+                stepCount = $scope.steps.length;
+                $scope.initSlider(stepCount, '');
+            })
+        };
+        $scope.initSlider = function(sCount, setValue) {
+            $scope.slider = {
+                minValue: 0,
+                maxValue: sCount-1,
+                value: setValue,
+                options: {
+                    showSelectionBar: true,
+                    floor: 0,
+                    ceil: sCount-1,
+                    showTicksValues: true,
+                    translate: function(value) {
+                        return 'step' + (value + 1);
+                    },
+                    onChange: function(id, newValue) {
+                        $('.carousel').carousel(newValue);
+                    }
+                }
+            };
+        };
+        $scope.NextOrPerviousSlider = function(go, sCount) {
+            var index = $('.carousel-indicators').children('.active').attr('data-slide-to');
+            if (go === "+") {
+                if (parseInt(index) + 1 == sCount) return;
+                $scope.initSlider(sCount, parseInt(index) + 1);
+            } else {
+                if (parseInt(index) == 0) return;
+                $scope.initSlider(sCount, parseInt(index)-1);
+            }
+        };
+        $scope.search = function() {
+            search();
+        };
+    });
+
+    // controller for slides page
+    entityApp.controller('slidesController', function($scope, $http, cfpLoadingBar) {
+        cfpLoadingBar.start()
+        $scope.loadSlides = function() {
+            var entitiesUrl = "/javascripts/sample/slides.json";
+            $http.get(entitiesUrl).success( function(response) {
+                $scope.slides = response.slides;
+            });
+        };
+        $scope.search = function() {
             search();
         };
     });
@@ -94,6 +151,9 @@
     $('#navSetLight').click (function() {
         $.cookie('modelviewTheme','united', { expires: 7, path: '/' });
         window.location.reload();
-    })
+    });
 
+    $('.carousel').carousel({
+        interval: false
+    });
 })();

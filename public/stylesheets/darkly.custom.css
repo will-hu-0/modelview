@@ -241,3 +241,84 @@ body {
   0%   { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+
+/* Slider */
+.sliderContiner {
+  margin: 20px;
+  width: 50%;
+}
+
+.carousel-customize {
+  position: absolute;
+  bottom: 0px;
+  height:80px;
+  width:100%;
+  z-index: 10;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left:20px;
+  color: #ffffff;
+  font-weight: bold;
+  text-align: left;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+  background-color: rgba(0,0,0,0.8);
+}
+
+
+/*slides grid*/
+.exploregrid-item {
+  float: left;
+  width: 285px;
+  height: 165px;
+  padding: 20px;
+  margin: 15px;
+  font-size: 14px;
+  color: #f5f5f5;
+  border: 1px solid rgba(0, 0, 0, 0.075);
+  border-bottom-color: rgba(0, 0, 0, 0.125);
+  border-radius: 4px;
+  background-color: #464545;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 5px 10px rgba(0, 0, 0, 0.05);
+  -webkit-transition: border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+  transition: border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out, background-color 0.4s ease;;
+}
+
+.exploregrid-item-hover {
+  float: left;
+  width: 285px;
+  height: 165px;
+  padding: 20px;
+  margin: 15px;
+  font-size: 14px;
+  color: #555;
+  border: 1px solid rgba(0, 0, 0, 0.075);
+  border-bottom-color: rgba(0, 0, 0, 0.125);
+  background-color: #2b2b2b;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 5px 10px rgba(0, 0, 0, 0.05);
+  -webkit-transition: border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+  transition: background-color 0.4s ease,border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+;
+}
+
+.exploregrid-item a{
+  text-decoration: none;
+}
+
+a:hover{
+  text-decoration: none;
+  color:#0ce3ac;
+}
+
+.exploregrid-item-header {
+  height: 20px;
+  margin: -21px -21px 20px;
+  background-color: #0ce3ac;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  opacity: 0.8;
+  -webkit-transition: opacity 0.1s ease-in-out;
+  transition: opacity 0.1s ease-in-out;
+}

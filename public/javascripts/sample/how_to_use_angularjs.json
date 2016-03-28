@@ -1,0 +1,40 @@
+{
+  "topic": "How to use AngularJS UI Bootstrap with ASP.NET MVC?",
+  "steps":[
+    {
+      "id": 0,
+      "explain": "Entity data model, build the project",
+      "imgPath": "../javascripts/sample/5.jpg"
+    },
+    {
+      "id": 1,
+      "explain": "Initialise the gallery.",
+      "imgPath": "../javascripts/sample/6.jpg"
+    },
+    {
+      "id": 2,
+      "explain": "Instlling packages...",
+      "imgPath": "../javascripts/sample/7.jpg"
+    },
+    {
+      "id": 3,
+      "explain": "Code on service side controller...",
+      "imgPath": "../javascripts/sample/8.jpg"
+    },
+    {
+      "id": 4,
+      "explain": "View, do you know how to build the view?",
+      "imgPath": "../javascripts/sample/9.jpg"
+    },
+    {
+      "id": 5,
+      "explain": "See the output.",
+      "imgPath": "../javascripts/sample/10.jpg"
+    },
+    {
+      "id": 6,
+      "explain": "We may download the code as well...",
+      "imgPath": "../javascripts/sample/11.jpg"
+    }
+  ]
+}

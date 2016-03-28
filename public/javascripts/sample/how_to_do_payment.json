@@ -1,0 +1,20 @@
+{
+  "topic": "How to do the payment?",
+  "steps":[
+    {
+      "id": 0,
+      "explain": "Go to menu and open Ready to pay.",
+      "imgPath": "../javascripts/sample/1.jpg"
+    },
+    {
+      "id": 1,
+      "explain": "Select the payment method.",
+      "imgPath": "../javascripts/sample/2.jpg"
+    },
+    {
+      "id": 2,
+      "explain": "Do the payment and assign the activity.",
+      "imgPath": "../javascripts/sample/3.jpg"
+    }
+  ]
+}
