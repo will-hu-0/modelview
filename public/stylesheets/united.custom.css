@@ -1,5 +1,5 @@
 body {
-  padding: 50px;
+  padding: 20px;
   font: 15px "proxima-nova","Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -335,4 +335,20 @@ a:hover{
   opacity: 0.8;
   -webkit-transition: opacity 0.1s ease-in-out;
   transition: opacity 0.1s ease-in-out;
+}
+
+/*404 500*/
+.error-template {padding: 40px 15px;text-align: center;}
+.error-actions {margin-top:15px;margin-bottom:15px;}
+.error-actions .btn { margin-right:10px; }
+
+/* wrap */
+.wrap {
+  min-height: 700px;
+}
+
+/*footer*/
+.footer-container {
+  float: right;
+  color:#dd4814;
 }

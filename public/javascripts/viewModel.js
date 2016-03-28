@@ -62,6 +62,9 @@
         $scope.search = function() {
             search();
         };
+        $scope.go = function (path) {
+            $(location).attr('href', path);
+        }
     });
 
     // controller for view slide page
