@@ -1,6 +1,6 @@
 (function() {
     // Define entityApp and controller
-    var entityApp = angular.module('entityApp', ['ngTable', 'ngSanitize','angular-loading-bar','ngAnimate','rzModule'])
+    var entityApp = angular.module('entityApp', ['ngTable', 'ngSanitize','angular-loading-bar','rzModule'])
         .config(function(cfpLoadingBarProvider) {
             cfpLoadingBarProvider.includeSpinner = true;
             cfpLoadingBarProvider.includeBar = true;
@@ -68,7 +68,7 @@
     });
 
     // controller for view slide page
-    entityApp.controller('viewSlideController', function($scope, $http, cfpLoadingBar) {
+    entityApp.controller('viewSlideController', function($scope, $http, $sce, cfpLoadingBar) {
         cfpLoadingBar.start();
         var stepCount = 0;
         $scope.loadSlide = function(topic) {
@@ -77,6 +77,7 @@
             $http.get(slideUrl).success( function(response) {
                 $scope.topic = response.topic;
                 $scope.steps = response.steps;
+                $scope.userCase = $sce.trustAsHtml(response.userCase);
                 stepCount = $scope.steps.length;
                 $scope.initSlider(stepCount, '');
             })
@@ -90,7 +91,7 @@
                     showSelectionBar: true,
                     floor: 0,
                     ceil: sCount-1,
-                    showTicksValues: true,
+                    showTicksValues: getIEVersion()===9? false:true,
                     translate: function(value) {
                         return 'step' + (value + 1);
                     },
@@ -159,4 +160,17 @@
     $('.carousel').carousel({
         interval: false
     });
+
+    function getIEVersion() {
+        var sAgent = window.navigator.userAgent;
+        var Idx = sAgent.indexOf("MSIE");
+        // If IE, return version number.
+        if (Idx > 0)
+            return parseInt(sAgent.substring(Idx+ 5, sAgent.indexOf(".", Idx)));
+        // If IE 11 then look for Updated user agent string.
+        else if (!!navigator.userAgent.match(/Trident\/7\./))
+            return 11;
+        else
+            return 0; //It is not IE
+    }
 })();

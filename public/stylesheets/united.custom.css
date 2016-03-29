@@ -263,6 +263,13 @@ body {
   width: 50%;
 }
 
+.userCaseContainer {
+  border-bottom: 1px solid #ccc;
+  margin: 15px;
+  padding-bottom: 5px;
+  width:80%;
+}
+
 .carousel-customize {
   position: absolute;
   bottom: 0px;
@@ -283,7 +290,6 @@ body {
 /*slides grid*/
 .exploregrid-item {
   float: left;
-  width: 285px;
   height: 165px;
   padding: 20px;
   margin: 15px;
@@ -300,7 +306,6 @@ body {
 
 .exploregrid-item-hover {
   float: left;
-  width: 285px;
   height: 165px;
   padding: 20px;
   margin: 15px;
@@ -336,6 +341,7 @@ a:hover{
   -webkit-transition: opacity 0.1s ease-in-out;
   transition: opacity 0.1s ease-in-out;
 }
+
 
 /*404 500*/
 .error-template {padding: 40px 15px;text-align: center;}

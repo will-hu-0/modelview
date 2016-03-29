@@ -16,10 +16,9 @@
     <div class="col-md-10">
         <div class="well">
             <span><b>{{topic}}</b></span>
+            <div class="userCaseContainer" ng-bind-html="userCase"></div>
             <div class="sliderContiner">
-                <p>
                 <rzslider rz-slider-model="slider.value" rz-slider-options="slider.options"></rzslider>
-                </p>
             </div>
         </div>
         <div class="well">

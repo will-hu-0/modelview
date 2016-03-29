@@ -1,5 +1,6 @@
 {
   "topic": "How to use AngularJS UI Bootstrap with ASP.NET MVC?",
+  "userCase": "<p>1.Developer authors the component code</p><p>2.Pass component Type with Metadata to compiler</p><p>3.Compiler returns ProtoView (via Promise)</p><p>4.Create ViewFactory from ProtoView (maybe)</p><p>5.Use ProtoView/ViewFactory to instantiate Views</p>",
   "steps":[
     {
       "id": 0,

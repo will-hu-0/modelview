@@ -242,11 +242,17 @@ body {
   100% { transform: rotate(360deg); }
 }
 
-
 /* Slider */
 .sliderContiner {
   margin: 20px;
   width: 50%;
+}
+
+.userCaseContainer {
+  border-bottom: 1px solid #4F4F4F;
+  margin: 15px;
+  padding-bottom: 5px;
+  width:80%;
 }
 
 .carousel-customize {
@@ -269,7 +275,6 @@ body {
 /*slides grid*/
 .exploregrid-item {
   float: left;
-  width: 285px;
   height: 165px;
   padding: 20px;
   margin: 15px;
@@ -286,7 +291,6 @@ body {
 
 .exploregrid-item-hover {
   float: left;
-  width: 285px;
   height: 165px;
   padding: 20px;
   margin: 15px;

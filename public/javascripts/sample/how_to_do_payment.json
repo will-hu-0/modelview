@@ -1,5 +1,6 @@
 {
   "topic": "How to do the payment?",
+  "userCase": "<p>Step1.Go to the menu and open it</p><p>Step2.Modernizr is a small piece of JavaScript code that automatically detects the availability</p>",
   "steps":[
     {
       "id": 0,
