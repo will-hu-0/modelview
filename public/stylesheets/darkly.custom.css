@@ -58,6 +58,10 @@ body {
   border-radius: 3px;
 }
 
+#Mock pre {
+  padding: 0px;
+}
+
 /* Entities page */
 /* Block */
 .half-unit {
