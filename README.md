@@ -13,6 +13,9 @@ Tech stack:
 >Jquery (1.11)   
 >ng-table(1.0.0-beta9)   
 >highlight   
+>angular-sanitize(1.5.0)    
+>angular-loading-bar(0.9.0)    
+>angularjs-slider(2.10.4)   
 
 Demo:
 -----
@@ -30,6 +33,10 @@ May change theme:
 
 ![](https://cloud.githubusercontent.com/assets/4235291/13904754/fbfeedf6-eee5-11e5-9025-b2b1eeb1902a.jpg)
 
+Topics:
+![](https://cloud.githubusercontent.com/assets/4235291/14108944/2fc00766-f5f2-11e5-844e-7161e6e3459d.jpg)
+
+![](https://cloud.githubusercontent.com/assets/4235291/14108942/2ed93a02-f5f2-11e5-9060-1778fc47f276.jpg)
 
 How to run on local?
 ---------------------
