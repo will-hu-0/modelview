@@ -1,0 +1,41 @@
+<% if (style==="darkly") { %>
+<% include ../header_darkly.ejs %>
+<% } else { %>
+<% include ../header_united.ejs %>
+<% } %>
+
+<div class="row" ng-controller="editSlideController" ng-init="loadEditSlide()" >
+    <% include ../functions/navbar.ejs %>
+
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="well">
+        <form class="form-horizontal">
+            <fieldset>
+                <legend>EDIT</legend>
+                <div class="form-group">
+                    <label for="inputTopic" class="col-md-2 control-label">TOPIC</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="inputTopic" placeholder="Input your topic here..">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="textArea" class="col-md-2 control-label">USERCASE</label>
+                    <div class="col-md-10">
+                        <textarea id="txtSlideEdit"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <button type="reset" class="btn btn-default">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+        </div>
+
+    </div> <!--col-md-10-->
+    <div class="col-md-1"></div>
+</div>
+<% include ../footer.ejs %>

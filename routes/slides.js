@@ -17,7 +17,15 @@ function viewSlides(req, res) {
     });
 }
 
+function editSlide(req, res) {
+    return res.render('slides/editSlide', {
+        title: "Edit slide " + " | ViewModel",
+        style: common.getTheme(req)
+    });
+}
+
 router.get('/', viewSlides);
+router.get('/edit/:name', editSlide);
 router.get('/:name', viewSlide);
 
 module.exports = router;

@@ -15,6 +15,8 @@ var common = require('./util/common.js');
 var app = express();
 
 var oneMonth = 2592000000;
+//var oneMonth =1;
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

@@ -130,6 +130,18 @@
         };
     });
 
+    // controller for edit slide page
+    entityApp.controller('editSlideController', function($scope, $http, cfpLoadingBar) {
+        cfpLoadingBar.start();
+        $scope.loadEditSlide = function() {
+            var simplemde = new SimpleMDE({ element: $("#txtSlideEdit")[0] });
+        };
+        $scope.search = function() {
+            search();
+        };
+        cfpLoadingBar.complete();
+    });
+
     $('#txtQueryEntity').keydown(function(event) {
         if (event.keyCode == 13) {
             search();
@@ -173,4 +185,6 @@
         else
             return 0; //It is not IE
     }
+
+
 })();

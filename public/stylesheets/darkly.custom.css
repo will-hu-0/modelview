@@ -331,6 +331,11 @@ a:hover{
   transition: opacity 0.1s ease-in-out;
 }
 
+/* slide edit */
+#inputTopic {
+  background-color: #ccc;
+}
+
 /*404 500*/
 .error-template {padding: 40px 15px;text-align: center;}
 .error-actions {margin-top:15px;margin-bottom:15px;}
