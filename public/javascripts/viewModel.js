@@ -148,6 +148,36 @@
         }
     });
 
+    // controller for home
+    entityApp.controller('homeController', function($scope, $http, cfpLoadingBar) {
+        cfpLoadingBar.start();
+        $scope.loadHome = function() {
+            var contributionUrl = "/javascripts/sample/datas-years.json";
+            $http.get(contributionUrl).success( function(response) {
+                $scope.loadContributionCalendar(response);
+            });
+        };
+        $scope.search = function() {
+            search();
+        };
+        $scope.loadContributionCalendar = function(data) {
+            var calendar = new CalHeatMap();
+            calendar.init({
+                data: data,
+                start: new Date(2000, 0),
+                domain: "month",
+                subDomain: "x_day",
+                range : 7,
+                cellsize: 16,
+                cellpadding: 3,
+                cellradius: 5,
+                domainGutter: 15,
+                weekStartOnMonday: 0,
+                scale: [40, 60, 80, 100]
+            });
+        };
+    })
+
     /* Define the onclick event of search textbox in the nav bar */
     function search() {
         if ($('#txtQueryEntity').val() == '') {
