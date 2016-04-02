@@ -4,14 +4,19 @@
         .config(function(cfpLoadingBarProvider) {
             cfpLoadingBarProvider.includeSpinner = true;
             cfpLoadingBarProvider.includeBar = true;
-        });
+        })
+        .config(['$httpProvider', function ($httpProvider) {
+            $httpProvider.defaults.useXDomain = true;
+            delete $httpProvider.defaults.headers.common['X-Requested-With'];
+        }]);
 
     // controller for entity view page
     entityApp.controller('entityController', function($scope, $http, $filter, $sce, ngTableParams, cfpLoadingBar) {
         $scope.loadEntity = function(entityName) {
             cfpLoadingBar.start();
             var entityNameLowcase = entityName.toLowerCase();
-            var entityBaseUrl = "/javascripts/sample/"+entityNameLowcase+".entityBase.json";
+            //var entityBaseUrl = "/javascripts/sample/"+entityNameLowcase+".entityBase.json";
+            var entityBaseUrl = "http://192.168.18.145:8085/entity/"+entityName
             $http.get(entityBaseUrl).success( function(response) {
                 $scope.entityName = response.entityName;
                 $scope.entityTable = response.entityTable;
@@ -52,10 +57,11 @@
     entityApp.controller('entitiesController', function($scope, $http, cfpLoadingBar) {
         cfpLoadingBar.start()
         $scope.loadEntities = function() {
-            var entitiesUrl = "/javascripts/sample/entities.json";
+            //var entitiesUrl = "/javascripts/sample/entities.json";
+            var entitiesUrl = "http://192.168.18.145:8085/entity/";
             $http.get(entitiesUrl).success( function(response) {
-                $scope.entities = response.entities;
-                var ArrViews = $.map(response.entities, function(data){ return data.views; });
+                $scope.entities = response;
+                var ArrViews = $.map(response, function(data){ return data.views; });
                 $scope.maxViews = Math.max.apply(Math, ArrViews);
             });
         };
