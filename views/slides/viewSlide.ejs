@@ -25,17 +25,17 @@
             <div id="mycarousel"class="carousel slide" data-ride="carousel" data-wrap="false">
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
-                    <li ng-repeat="step in steps"
+                    <li ng-repeat="step in slideSteps"
                         data-target="#mycarousel"
                         data-slide-to="{{step.id}}"
                         ng-class="{true: 'active',false: ''}[step.id===0]"
-                        ng-click="initSlider(steps.length, step.id);">
+                        ng-click="initSlider(slideSteps.length, step.id);">
                     </li>
                 </ol>
 
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner" role="listbox">
-                    <div ng-class="{true: 'item active', false: 'item'}[step.id===0]" ng-repeat="step in steps">
+                    <div ng-class="{true: 'item active', false: 'item'}[step.id===0]" ng-repeat="step in slideSteps">
                         <img class="img-responsive center-block" ng-src="{{step.imgPath}}" />
                         <div class="carousel-customize">
                             {{step.explain}}
@@ -44,11 +44,11 @@
                 </div>
 
                 <!-- Controls -->
-                <a class="left carousel-control" href="#mycarousel" role="button" data-slide="prev" ng-click="NextOrPerviousSlider('-', steps.length)" >
+                <a class="left carousel-control" href="#mycarousel" role="button" data-slide="prev" ng-click="NextOrPerviousSlider('-', slideSteps.length)" >
                     <span class="glyphicon glyphicon-chevron-left" ></span>
                     <span class="sr-only">Previous</span>
                 </a>
-                <a class="right carousel-control" href="#mycarousel" role="button" data-slide="next" ng-click="NextOrPerviousSlider('+', steps.length)">
+                <a class="right carousel-control" href="#mycarousel" role="button" data-slide="next" ng-click="NextOrPerviousSlider('+', slideSteps.length)">
                     <span class="glyphicon glyphicon-chevron-right" ></span>
                     <span class="sr-only">Next</span>
                 </a>

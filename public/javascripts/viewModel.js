@@ -81,12 +81,13 @@
         var stepCount = 0;
         $scope.loadSlide = function(topic) {
             var ltopic = topic.toLowerCase();
-            var slideUrl = "/javascripts/sample/"+ltopic+".json";
+            //var slideUrl = "/javascripts/sample/"+ltopic+".json";
+            var slideUrl = REST_SERVICE_URI + "/slide/" + topic;
             $http.get(slideUrl).success( function(response) {
                 $scope.topic = response.topic;
-                $scope.steps = response.steps;
+                $scope.slideSteps = response.slideSteps;
                 $scope.userCase = $sce.trustAsHtml(response.userCase);
-                stepCount = $scope.steps.length;
+                stepCount = $scope.slideSteps.length;
                 $scope.initSlider(stepCount, '');
             })
         };
@@ -128,7 +129,8 @@
     entityApp.controller('slidesController', function($scope, $http, cfpLoadingBar) {
         cfpLoadingBar.start()
         $scope.loadSlides = function() {
-            var entitiesUrl = "/javascripts/sample/slides.json";
+            //var entitiesUrl = "/javascripts/sample/slides.json";
+            var entitiesUrl = REST_SERVICE_URI + "/slide/";
             $http.get(entitiesUrl).success( function(response) {
                 $scope.slides = response;
             });

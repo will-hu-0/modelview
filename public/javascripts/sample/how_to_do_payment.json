@@ -1,7 +1,9 @@
 {
+  "id": "how_to_do_payment",
   "topic": "How to do the payment?",
+  "description": "You may learn how to do the payment in the system...",
   "userCase": "<p>Step1.Go to the menu and open it</p><p>Step2.Modernizr is a small piece of JavaScript code that automatically detects the availability</p>",
-  "steps":[
+  "slideSteps":[
     {
       "id": 0,
       "explain": "Go to menu and open Ready to pay.",

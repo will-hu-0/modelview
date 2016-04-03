@@ -1,7 +1,9 @@
 {
+  "id": "how_to_use_angularjs",
   "topic": "How to use AngularJS UI Bootstrap with ASP.NET MVC?",
+  "description": "You may learn how to use AngularJS in the ASP.NET MVC.",
   "userCase": "<p>1.Developer authors the component code</p><p>2.Pass component Type with Metadata to compiler</p><p>3.Compiler returns ProtoView (via Promise)</p><p>4.Create ViewFactory from ProtoView (maybe)</p><p>5.Use ProtoView/ViewFactory to instantiate Views</p>",
-  "steps":[
+  "slideSteps":[
     {
       "id": 0,
       "explain": "Entity data model, build the project",
