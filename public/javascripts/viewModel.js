@@ -1,4 +1,6 @@
 (function() {
+    var REST_SERVICE_URI = "http://192.168.18.145:8085";
+
     // Define entityApp and controller
     var entityApp = angular.module('entityApp', ['ngTable', 'ngSanitize','angular-loading-bar','rzModule'])
         .config(function(cfpLoadingBarProvider) {
@@ -16,7 +18,7 @@
             cfpLoadingBar.start();
             var entityNameLowcase = entityName.toLowerCase();
             //var entityBaseUrl = "/javascripts/sample/"+entityNameLowcase+".entityBase.json";
-            var entityBaseUrl = "http://192.168.18.145:8085/entity/"+entityName
+            var entityBaseUrl = REST_SERVICE_URI + "/entity/" + entityName
             $http.get(entityBaseUrl).success( function(response) {
                 $scope.entityName = response.entityName;
                 $scope.entityTable = response.entityTable;
@@ -58,7 +60,7 @@
         cfpLoadingBar.start()
         $scope.loadEntities = function() {
             //var entitiesUrl = "/javascripts/sample/entities.json";
-            var entitiesUrl = "http://192.168.18.145:8085/entity/";
+            var entitiesUrl = REST_SERVICE_URI + "/entity/";
             $http.get(entitiesUrl).success( function(response) {
                 $scope.entities = response;
                 var ArrViews = $.map(response, function(data){ return data.views; });
@@ -128,7 +130,7 @@
         $scope.loadSlides = function() {
             var entitiesUrl = "/javascripts/sample/slides.json";
             $http.get(entitiesUrl).success( function(response) {
-                $scope.slides = response.slides;
+                $scope.slides = response;
             });
         };
         $scope.search = function() {

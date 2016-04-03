@@ -1,34 +1,32 @@
-{
-  "slides":[
-    {
-      "id": "how_to_do_payment",
-      "title": "How to do the payment?",
-      "description": "You may learn how to do the payment in the system..."
-    },
-    {
-      "id": "how_to_use_angularjs",
-      "title": "How to use AngularJS?",
-      "description": "You may learn how to use AngularJS in the ASP.NET MVC."
-    },
-    {
-      "id": "how_to_use_django",
-      "title": "How to use Django?",
-      "description": "You may learn how to use Django with nginx. Faster than your imagination!"
-    },
-    {
-      "id": "how_to_cancel_the_payment",
-      "title": "How to cancel the payment?",
-      "description": "You may learn how to cancel the payment even you are not qualified."
-    },
-    {
-      "id": "how_to_delete_the_payment",
-      "title": "How to delete the payment?",
-      "description": "You may learn how to cancel the payment even you are not qualified."
-    },
-    {
-      "id": "how_to_void_the_payment",
-      "title": "How to void the payment?",
-      "description": "You may learn how to cancel the payment even you are not qualified."
-    }
-  ]
-}
+[
+  {
+    "id": "how_to_do_payment",
+    "title": "How to do the payment?",
+    "description": "You may learn how to do the payment in the system..."
+  },
+  {
+    "id": "how_to_use_angularjs",
+    "title": "How to use AngularJS?",
+    "description": "You may learn how to use AngularJS in the ASP.NET MVC."
+  },
+  {
+    "id": "how_to_use_django",
+    "title": "How to use Django?",
+    "description": "You may learn how to use Django with nginx. Faster than your imagination!"
+  },
+  {
+    "id": "how_to_cancel_the_payment",
+    "title": "How to cancel the payment?",
+    "description": "You may learn how to cancel the payment even you are not qualified."
+  },
+  {
+    "id": "how_to_delete_the_payment",
+    "title": "How to delete the payment?",
+    "description": "You may learn how to cancel the payment even you are not qualified."
+  },
+  {
+    "id": "how_to_void_the_payment",
+    "title": "How to void the payment?",
+    "description": "You may learn how to cancel the payment even you are not qualified."
+  }
+]
