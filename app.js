@@ -5,17 +5,19 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var fs = require('fs');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var entities = require('./routes/entities');
 var slides = require('./routes/slides');
 var common = require('./util/common.js');
+var config = JSON.parse(fs.readFileSync('./configs/config.json').toString());
 
 var app = express();
 
-var oneMonth = 2592000000;
-//var oneMonth =1;
+//var oneMonth = 2592000000;
+var oneMonth =1;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -34,6 +36,11 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/entities', entities);
 app.use('/slides', slides);
+
+// define the global variable
+//app.locals.mode = config.mode;
+//app.locals.serviceuri = config.serviceuri;
+app.locals.configs = JSON.stringify(config);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

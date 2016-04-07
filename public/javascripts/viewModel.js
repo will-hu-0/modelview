@@ -1,5 +1,7 @@
 (function() {
-    var REST_SERVICE_URI = "http://192.168.18.145:8085";
+    var configs = JSON.parse($('#configs').val());
+    var REST_SERVICE_URI = configs.serviceuri;
+    var mode = configs.mode;
 
     // Define entityApp and controller
     var entityApp = angular.module('entityApp', ['ngTable', 'ngSanitize','angular-loading-bar','rzModule'])
@@ -18,7 +20,8 @@
             cfpLoadingBar.start();
             var entityNameLowcase = entityName.toLowerCase();
             //var entityBaseUrl = "/javascripts/sample/"+entityNameLowcase+".entityBase.json";
-            var entityBaseUrl = REST_SERVICE_URI + "/entity/" + entityName
+            var entityBaseUrl = mode == "demo" ? "/javascripts/sample/"+entityNameLowcase+".entityBase.json"
+                : REST_SERVICE_URI + "/entity/" + entityName;
             $http.get(entityBaseUrl).success( function(response) {
                 $scope.entityName = response.entityName;
                 $scope.entityTable = response.entityTable;
@@ -60,7 +63,7 @@
         cfpLoadingBar.start()
         $scope.loadEntities = function() {
             //var entitiesUrl = "/javascripts/sample/entities.json";
-            var entitiesUrl = REST_SERVICE_URI + "/entity/";
+            var entitiesUrl = mode == "demo" ? "/javascripts/sample/entities.json" : REST_SERVICE_URI + "/entity/";
             $http.get(entitiesUrl).success( function(response) {
                 $scope.entities = response;
                 var ArrViews = $.map(response, function(data){ return data.views; });
@@ -82,7 +85,8 @@
         $scope.loadSlide = function(topic) {
             var ltopic = topic.toLowerCase();
             //var slideUrl = "/javascripts/sample/"+ltopic+".json";
-            var slideUrl = REST_SERVICE_URI + "/slide/" + topic;
+            var slideUrl = mode == "demo" ? "/javascripts/sample/"+ltopic+".json"
+                : REST_SERVICE_URI + "/slide/" + topic;
             $http.get(slideUrl).success( function(response) {
                 $scope.topic = response.topic;
                 $scope.slideSteps = response.slideSteps;
@@ -130,7 +134,7 @@
         cfpLoadingBar.start()
         $scope.loadSlides = function() {
             //var entitiesUrl = "/javascripts/sample/slides.json";
-            var entitiesUrl = REST_SERVICE_URI + "/slide/";
+            var entitiesUrl = mode == "demo" ? "/javascripts/sample/slides.json" : REST_SERVICE_URI + "/slide/";
             $http.get(entitiesUrl).success( function(response) {
                 $scope.slides = response;
             });
