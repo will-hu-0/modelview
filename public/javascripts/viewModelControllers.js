@@ -1,35 +1,19 @@
 (function() {
-    var configs = JSON.parse($('#configs').val());
-    var REST_SERVICE_URI = configs.serviceuri;
-    var mode = configs.mode;
 
-    // Define entityApp and controller
-    var entityApp = angular.module('entityApp', ['ngTable', 'ngSanitize','angular-loading-bar','rzModule'])
-        .config(function(cfpLoadingBarProvider) {
-            cfpLoadingBarProvider.includeSpinner = true;
-            cfpLoadingBarProvider.includeBar = true;
-        })
-        .config(['$httpProvider', function ($httpProvider) {
-            $httpProvider.defaults.useXDomain = true;
-            delete $httpProvider.defaults.headers.common['X-Requested-With'];
-        }]);
+    var viewModelControllers = angular.module('viewModelControllers',[]);
 
     // controller for entity view page
-    entityApp.controller('entityController', function($scope, $http, $filter, $sce, ngTableParams, cfpLoadingBar) {
-        $scope.loadEntity = function(entityName) {
+    viewModelControllers.controller('entityController', function($scope, $filter, $sce, ngTableParams, cfpLoadingBar, ViewModelEntityService) {
+        $scope.loadEntity = function(entityId) {
             cfpLoadingBar.start();
-            var entityNameLowcase = entityName.toLowerCase();
-            //var entityBaseUrl = "/javascripts/sample/"+entityNameLowcase+".entityBase.json";
-            var entityBaseUrl = mode == "demo" ? "/javascripts/sample/"+entityNameLowcase+".entityBase.json"
-                : REST_SERVICE_URI + "/entity/" + entityName;
-            $http.get(entityBaseUrl).success( function(response) {
-                $scope.entityName = response.entityName;
-                $scope.entityTable = response.entityTable;
-                $scope.entityFields = response.entityFields;
-                $scope.entitiesRangeArray = response.entitiesRange.toString().split(',');
+            $scope.entity = ViewModelEntityService.get({entityId:entityId}, function(entity) {
+                $scope.entityName = entity.entityName;
+                $scope.entityTable = entity.entityTable;
+                $scope.entityFields = entity.entityFields;
+                $scope.entitiesRangeArray = entity.entitiesRange.toString().split(',');
 
                 $scope.entitiesTable = new ngTableParams(
-                    { page: 1, count: 500 },
+                    {page: 1, count: 500},
                     {
                         total: $scope.entityFields.length,
                         counts: [], // No items per page
@@ -41,17 +25,17 @@
                             $defer.resolve($scope.entityData);
                         }
                     });
-                $scope.bizView = $sce.trustAsHtml(response.bizView);
-                $scope.entityPath = $sce.trustAsHtml(response.entityPath);
-                $scope.entityMock = $sce.trustAsHtml(response.entityMock);
+                $scope.bizView = $sce.trustAsHtml(entity.bizView);
+                $scope.entityPath = $sce.trustAsHtml(entity.entityPath);
+                $scope.entityMock = $sce.trustAsHtml(entity.entityMock);
 
-                $scope.$watch('$viewContentLoaded', function(){
+                $scope.$watch('$viewContentLoaded', function () {
                     // Pretty the code inside the page
                     $('pre code').each(function (i, block) {
                         hljs.highlightBlock(block);
                     });
                 });
-            })
+            });
         };
         $scope.search = function() {
             search();
@@ -59,16 +43,12 @@
     });
 
     // controller for entities page
-    entityApp.controller('entitiesController', function($scope, $http, cfpLoadingBar) {
+    viewModelControllers.controller('entitiesController', function($scope, cfpLoadingBar, ViewModelEntityService) {
         cfpLoadingBar.start()
         $scope.loadEntities = function() {
-            //var entitiesUrl = "/javascripts/sample/entities.json";
-            var entitiesUrl = mode == "demo" ? "/javascripts/sample/entities.json" : REST_SERVICE_URI + "/entity/";
-            $http.get(entitiesUrl).success( function(response) {
-                $scope.entities = response;
-                var ArrViews = $.map(response, function(data){ return data.views; });
-                $scope.maxViews = Math.max.apply(Math, ArrViews);
-            });
+            $scope.entities = ViewModelEntityService.query();
+            var ArrViews = $.map($scope.entities, function(data){ return data.views; });
+            $scope.maxViews = Math.max.apply(Math, ArrViews);
         };
         $scope.search = function() {
             search();
@@ -79,18 +59,18 @@
     });
 
     // controller for view slide page
-    entityApp.controller('viewSlideController', function($scope, $http, $sce, cfpLoadingBar) {
+    viewModelControllers.controller('viewSlideController', function($scope, $sce, cfpLoadingBar, ViewModelSlideService) {
         cfpLoadingBar.start();
         var stepCount = 0;
         $scope.loadSlide = function(topic) {
             var ltopic = topic.toLowerCase();
-            //var slideUrl = "/javascripts/sample/"+ltopic+".json";
-            var slideUrl = mode == "demo" ? "/javascripts/sample/"+ltopic+".json"
+            //var slideUrl = "/javascripts/sample1/"+ltopic+".json";
+            var slideUrl = mode == "demo" ? "/javascripts/sample1/"+ltopic+".json"
                 : REST_SERVICE_URI + "/slide/" + topic;
-            $http.get(slideUrl).success( function(response) {
-                $scope.topic = response.topic;
-                $scope.slideSteps = response.slideSteps;
-                $scope.userCase = $sce.trustAsHtml(response.userCase);
+            $scope.slide = ViewModelSlideService.get({slideId:topic}, function(slide) {
+                $scope.topic = slide.topic;
+                $scope.slideSteps = slide.slideSteps;
+                $scope.userCase = $sce.trustAsHtml(slide.userCase);
                 stepCount = $scope.slideSteps.length;
                 $scope.initSlider(stepCount, '');
             })
@@ -130,14 +110,10 @@
     });
 
     // controller for slides page
-    entityApp.controller('slidesController', function($scope, $http, cfpLoadingBar) {
+    viewModelControllers.controller('slidesController', function($scope, cfpLoadingBar, ViewModelSlideService) {
         cfpLoadingBar.start()
         $scope.loadSlides = function() {
-            //var entitiesUrl = "/javascripts/sample/slides.json";
-            var entitiesUrl = mode == "demo" ? "/javascripts/sample/slides.json" : REST_SERVICE_URI + "/slide/";
-            $http.get(entitiesUrl).success( function(response) {
-                $scope.slides = response;
-            });
+            $scope.slides = ViewModelSlideService.query();
         };
         $scope.search = function() {
             search();
@@ -145,7 +121,7 @@
     });
 
     // controller for edit slide page
-    entityApp.controller('editSlideController', function($scope, $http, cfpLoadingBar) {
+    viewModelControllers.controller('editSlideController', function($scope, $http, cfpLoadingBar) {
         cfpLoadingBar.start();
         $scope.loadEditSlide = function() {
             var simplemde = new SimpleMDE({ element: $("#txtSlideEdit")[0] });
@@ -163,10 +139,10 @@
     });
 
     // controller for home
-    entityApp.controller('homeController', function($scope, $http, cfpLoadingBar) {
+    viewModelControllers.controller('homeController', function($scope, $http, cfpLoadingBar) {
         cfpLoadingBar.start();
         $scope.loadHome = function() {
-            var contributionUrl = "/javascripts/sample/datas-years.json";
+            var contributionUrl = "/javascripts/sample1/datas-years.json";
             $http.get(contributionUrl).success( function(response) {
                 $scope.loadContributionCalendar(response);
             });
@@ -194,22 +170,23 @@
 
     /* Define the onclick event of search textbox in the nav bar */
     function search() {
-        if ($('#txtQueryEntity').val() == '') {
-            $('#txtQueryEntity').val('Put something here?')
-            $('#txtQueryEntity').click(function(){
+        var searchStr = $('#txtQueryEntity').val();
+        if (searchStr == '') {
+            searchStr.val('Put something here?')
+            searchStr.click(function(){
                 $(this).val('');
             })
         } else {
-            $(location).attr('href', '/Entities/' + $('#txtQueryEntity').val());
+            $(location).attr('href', '/Entities/' + searchStr);
         }
     }
 
     $('#navSetDark').click (function() {
-        $.cookie('modelviewTheme','darkly', { expires: 7, path: '/' });
+        $.cookie('modelviewTheme','darkly', { path: '/', expires: 7 });
         window.location.reload();
     });
     $('#navSetLight').click (function() {
-        $.cookie('modelviewTheme','united', { expires: 7, path: '/' });
+        $.cookie('modelviewTheme','united', { path: '/', expires: 7 });
         window.location.reload();
     });
 
