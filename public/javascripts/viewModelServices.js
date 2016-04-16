@@ -1,8 +1,4 @@
 'use strict';
-/**
- * Created by will on 16-4-10.
- * Service
- */
 
 var vServices = angular.module('vServices', ['ngResource']);
 

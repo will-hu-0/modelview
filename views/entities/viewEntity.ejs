@@ -5,54 +5,55 @@
 <% } %>
 <div ng-controller="entityController" ng-init="loadEntity('<%= entityName %>')">
     <% include ../functions/navbar.ejs %>
-    <ul class="breadcrumb">
-        <li><a href="/">Home</a></li>
-        <li><a href="../entities/">Entities</a></li>
-        <li class="current">{{ entityName }} ({{ entityTable }})</li>
-    </ul>
-    <div class="row" >
-        <div class="col-md-4">
-            <div class="contentBlock">
-                <div>
-                    <table ng-table="entitiesTable" class="table table-striped">
-                        <tr ng-repeat="field in entityData" >
-                            <td>*</td>
-                            <td data-title="'FIELDNAME'" sortable="'fieldName'">
-                                <div ng-show="'{{entitiesRangeArray}}'.indexOf('{{ field.fieldName }}')==-1">{{ field.fieldName }}</div>
-                                <div ng-show="'{{entitiesRangeArray}}'.indexOf('{{ field.fieldName }}')>-1">
-                                    <b><a href="/Entities/{{ field.fieldName }}">{{ field.fieldName }}</a></b>
-                                </div>
-                            </td>
-                            <td data-title="'FIELDTYPE'" sortable="'fieldType'">{{ field.fieldType }}</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-8">
-            <div class="contentBlock">
-                <div class="bizView-header">
-                    <h3>Biz Insight</h3>
-                </div>
-                <div ng-bind-html="bizView"></div>
-            </div>
-            <div class="contentBlock">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#entityPath" data-toggle="tab" aria-expanded="true">Entity Path</a></li>
-                    <li class=""><a href="#Mock" id="mockTab" data-toggle="tab" aria-expanded="false">Mock</a></li>
-                </ul>
-                <div id="myTabContent" class="tab-content">
-                    <div class="tab-pane fade active in" id="entityPath">
-                        <p><div ng-bind-html="entityPath"></div></p>
+    <div class="container">
+        <ul class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li><a href="../entities/">Entities</a></li>
+            <li class="current">{{ entityName }} ({{ entityTable }})</li>
+        </ul>
+        <div class="row" >
+            <div class="col-md-4">
+                <div class="contentBlock">
+                    <div>
+                        <table ng-table="entitiesTable" class="table table-striped">
+                            <tr ng-repeat="field in entityData" >
+                                <td>*</td>
+                                <td data-title="'FIELDNAME'" sortable="'fieldName'">
+                                    <div ng-show="'{{entitiesRangeArray}}'.indexOf('{{ field.fieldName }}')==-1">{{ field.fieldName }}</div>
+                                    <div ng-show="'{{entitiesRangeArray}}'.indexOf('{{ field.fieldName }}')>-1">
+                                        <b><a href="/Entities/{{ field.fieldName }}">{{ field.fieldName }}</a></b>
+                                    </div>
+                                </td>
+                                <td data-title="'FIELDTYPE'" sortable="'fieldType'">{{ field.fieldType }}</td>
+                            </tr>
+                        </table>
                     </div>
-                    <div class="tab-pane fade" id="Mock">
-                        <p><div ng-bind-html="entityMock"></div></p>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="contentBlock">
+                    <div class="bizView-header">
+                        <h3>Biz Insight</h3>
+                    </div>
+                    <div ng-bind-html="bizView"></div>
+                </div>
+                <div class="contentBlock">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#entityPath" data-toggle="tab" aria-expanded="true">Entity Path</a></li>
+                        <li class=""><a href="#Mock" id="mockTab" data-toggle="tab" aria-expanded="false">Mock</a></li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane fade active in" id="entityPath">
+                            <p><div ng-bind-html="entityPath"></div></p>
+                        </div>
+                        <div class="tab-pane fade" id="Mock">
+                            <p><div ng-bind-html="entityMock"></div></p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
 <% include ../footer.ejs %>

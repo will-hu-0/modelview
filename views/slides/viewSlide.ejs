@@ -6,55 +6,55 @@
 
 <div class="row" ng-controller="viewSlideController" ng-init="loadSlide('<%=slideName%>')" >
     <% include ../functions/navbar.ejs %>
-    <ul class="breadcrumb">
-        <li><a href="/">Home</a></li>
-        <li><a href="/slides/">Topics</a></li>
-        <li class="current">{{topic}}</li>
-    </ul>
+    <div class="container">
+        <ul class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li><a href="/slides/">Topics</a></li>
+            <li class="current">{{topic}}</li>
+        </ul>
 
-    <div class="col-md-1"></div>
-    <div class="col-md-10">
-        <div class="well">
-            <span><b>{{topic}}</b></span>
-            <div class="userCaseContainer" ng-bind-html="userCase"></div>
-            <div class="sliderContiner">
-                <rzslider rz-slider-model="slider.value" rz-slider-options="slider.options"></rzslider>
+        <div class="col-md-12">
+            <div class="well">
+                <span><b>{{topic}}</b></span>
+                <div class="userCaseContainer" ng-bind-html="userCase"></div>
+                <div class="sliderContiner">
+                    <rzslider rz-slider-model="slider.value" rz-slider-options="slider.options"></rzslider>
+                </div>
             </div>
-        </div>
-        <div class="well">
-            <div id="mycarousel"class="carousel slide" data-ride="carousel" data-wrap="false">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li ng-repeat="step in slideSteps"
-                        data-target="#mycarousel"
-                        data-slide-to="{{step.id}}"
-                        ng-class="{true: 'active',false: ''}[step.id===0]"
-                        ng-click="initSlider(slideSteps.length, step.id);">
-                    </li>
-                </ol>
+            <div class="well">
+                <div id="mycarousel"class="carousel slide" data-ride="carousel" data-wrap="false">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li ng-repeat="step in slideSteps"
+                            data-target="#mycarousel"
+                            data-slide-to="{{step.id}}"
+                            ng-class="{true: 'active',false: ''}[step.id===0]"
+                            ng-click="initSlider(slideSteps.length, step.id);">
+                        </li>
+                    </ol>
 
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner" role="listbox">
-                    <div ng-class="{true: 'item active', false: 'item'}[step.id===0]" ng-repeat="step in slideSteps">
-                        <img class="img-responsive center-block" ng-src="{{step.imgPath}}" />
-                        <div class="carousel-customize">
-                            {{step.explain}}
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner" role="listbox">
+                        <div ng-class="{true: 'item active', false: 'item'}[step.id===0]" ng-repeat="step in slideSteps">
+                            <img class="img-responsive center-block" ng-src="{{step.imgPath}}" />
+                            <div class="carousel-customize">
+                                {{step.explain}}
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Controls -->
-                <a class="left carousel-control" href="#mycarousel" role="button" data-slide="prev" ng-click="NextOrPerviousSlider('-', slideSteps.length)" >
-                    <span class="glyphicon glyphicon-chevron-left" ></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="right carousel-control" href="#mycarousel" role="button" data-slide="next" ng-click="NextOrPerviousSlider('+', slideSteps.length)">
-                    <span class="glyphicon glyphicon-chevron-right" ></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div> <!--mycarousel-->
-        </div> <!--well-->
-    </div> <!--col-md-10-->
-    <div class="col-md-1"></div>
+                    <!-- Controls -->
+                    <a class="left carousel-control" href="#mycarousel" role="button" data-slide="prev" ng-click="NextOrPerviousSlider('-', slideSteps.length)" >
+                        <span class="glyphicon glyphicon-chevron-left" ></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#mycarousel" role="button" data-slide="next" ng-click="NextOrPerviousSlider('+', slideSteps.length)">
+                        <span class="glyphicon glyphicon-chevron-right" ></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div> <!--mycarousel-->
+            </div> <!--well-->
+        </div> <!--col-md-12-->
+    </div>
 </div>
 <% include ../footer.ejs %>
