@@ -1,5 +1,5 @@
 {
   "mode": "demo",
   "env": "development",
-  "serviceuri": "http://192.168.18.147:8085"
+  "serviceuri": "http://192.168.18.149:8085"
 }

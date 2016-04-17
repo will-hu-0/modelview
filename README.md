@@ -9,13 +9,18 @@ Tech stack:
 >Express (>=4.0)  
 >AngularJS (1.5)   
 >Angular sanitize (1.5)    
->Bootswatch (Based on bootstrap)    
+>Bootswatch (3.3.6)    
 >Jquery (1.11)   
 >ng-table(1.0.0-beta9)   
 >highlight   
 >angular-sanitize(1.5.0)    
 >angular-loading-bar(0.9.0)    
 >angularjs-slider(2.10.4)   
+>d3    
+>cal-heatmap    
+>simplemde(1.10.1)   
+>showdown(1.3)    
+
 
 Demo:
 -----

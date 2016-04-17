@@ -3,6 +3,7 @@
 (function() {
 
     var viewModelControllers = angular.module('viewModelControllers',[]);
+    var converter = new showdown.Converter()
 
     // controller for entity view page
     viewModelControllers.controller('entityController', function($scope, $filter, $sce, ngTableParams, cfpLoadingBar, ViewModelEntityService) {
@@ -27,7 +28,7 @@
                             $defer.resolve($scope.entityData);
                         }
                     });
-                $scope.bizView = $sce.trustAsHtml(entity.bizView);
+                $scope.bizView = $sce.trustAsHtml(converter.makeHtml(entity.bizView));
                 $scope.entityPath = $sce.trustAsHtml(entity.entityPath);
                 $scope.entityMock = $sce.trustAsHtml(entity.entityMock);
 
@@ -65,14 +66,10 @@
         cfpLoadingBar.start();
         var stepCount = 0;
         $scope.loadSlide = function(topic) {
-            var ltopic = topic.toLowerCase();
-            //var slideUrl = "/javascripts/sample1/"+ltopic+".json";
-            var slideUrl = mode == "demo" ? "/javascripts/sample1/"+ltopic+".json"
-                : REST_SERVICE_URI + "/slide/" + topic;
             $scope.slide = ViewModelSlideService.get({slideId:topic}, function(slide) {
                 $scope.topic = slide.topic;
                 $scope.slideSteps = slide.slideSteps;
-                $scope.userCase = $sce.trustAsHtml(slide.userCase);
+                $scope.userCase = $sce.trustAsHtml(converter.makeHtml(slide.userCase));
                 stepCount = $scope.slideSteps.length;
                 $scope.initSlider(stepCount, '');
             })
@@ -125,11 +122,15 @@
     // controller for edit slide page
     viewModelControllers.controller('editSlideController', function($scope, $http, cfpLoadingBar) {
         cfpLoadingBar.start();
+        var simplemde;
         $scope.loadEditSlide = function() {
-            var simplemde = new SimpleMDE({ element: $("#txtSlideEdit")[0] });
+            simplemde = new SimpleMDE({ element: $("#txtSlideEdit")[0] });
         };
         $scope.search = function() {
             search();
+        };
+        $scope.upload = function() {
+            //alert(simplemde.value());
         };
         cfpLoadingBar.complete();
     });
