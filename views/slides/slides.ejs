@@ -12,7 +12,7 @@
 
     <div class="row" ng-controller="slidesController" ng-init="loadSlides()" >
         <div class="col-md-12">
-            <div class="col-xs-4 col-lg-4" ng-repeat="slide in slides">
+            <div class="col-xs-4 col-lg-4" ng-repeat="slide in slides | filter:collectionFilter ">
                 <a ng-href="../slides/{{slide.id}}" class="exploregrid-item"
                    ng-class="{'exploregrid-item-hover':hovering}" ng-mouseover="hovering=true"
                    ng-mouseleave="hovering=false" >

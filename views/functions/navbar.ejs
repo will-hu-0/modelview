@@ -24,7 +24,7 @@
             </ul>
             <form class="navbar-form navbar-right" role="search">
                 <div class="form-group">
-                    <input id="txtQueryEntity" type="text" class="form-control" placeholder="Search something..">
+                    <input id="txtQueryEntity" ng-model="collectionFilter" type="text" class="form-control" placeholder="Search something..">
                 </div>
                 <button class="btn btn-default" ng-click="search()">SEARCH</button>
             </form>
