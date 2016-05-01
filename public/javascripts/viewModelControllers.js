@@ -3,42 +3,47 @@
 (function() {
 
     var viewModelControllers = angular.module('viewModelControllers',[]);
-    var converter = new showdown.Converter()
+    var converter = new showdown.Converter();
 
     // controller for entity view page
     viewModelControllers.controller('entityController', function($scope, $filter, $sce, ngTableParams, cfpLoadingBar, ViewModelEntityService) {
         $scope.loadEntity = function(entityId) {
             cfpLoadingBar.start();
-            $scope.entity = ViewModelEntityService.get({entityId:entityId}, function(entity) {
-                $scope.entityName = entity.entityName;
-                $scope.entityTable = entity.entityTable;
-                $scope.entityFields = entity.entityFields;
-                $scope.entitiesRangeArray = entity.entitiesRange.toString().split(',');
+            var promise = ViewModelEntityService.queryEntity(entityId);
+            promise.then(function(data) {
+                //TODO: if data is null, take some action
+                $scope.entity = data;
+                $scope.entityName = data.entityName;
+                $scope.entityTable = data.entityTable;
+                $scope.entityColumns = data.entityColumns;
+                $scope.existEntitiesArray = data.existEntities.toString().split(',');
 
                 $scope.entitiesTable = new ngTableParams(
                     {page: 1, count: 500},
                     {
-                        total: $scope.entityFields.length,
+                        total: $scope.entityColumns.length,
                         counts: [], // No items per page
                         getData: function ($defer, params) {
                             $scope.entityData = params.sorting() ?
-                                $filter('orderBy')($scope.entityFields, params.orderBy()) : $scope.entityFields;
+                                $filter('orderBy')($scope.entityColumns, params.orderBy()) : $scope.entityColumns;
                             $scope.entityData = $scope.entityData.slice(
                                 (params.page() - 1) * params.count(), params.page() * params.count());
                             $defer.resolve($scope.entityData);
                         }
                     });
-                $scope.bizView = $sce.trustAsHtml(converter.makeHtml(entity.bizView));
-                $scope.entityPath = $sce.trustAsHtml(entity.entityPath);
-                $scope.entityMock = $sce.trustAsHtml(entity.entityMock);
+                $scope.businessValue = $sce.trustAsHtml(converter.makeHtml(data.businessValue));
+                $scope.entityPath = $sce.trustAsHtml(data.entityPath);
+                $scope.entityBuilder = $sce.trustAsHtml(data.entityBuilder);
 
                 $scope.$watch('$viewContentLoaded', function () {
-                    // Pretty the code inside the page
+                     //Pretty the code inside the page
                     $('pre code').each(function (i, block) {
                         hljs.highlightBlock(block);
                     });
                 });
-            });
+            }, function (data) {
+                // Log (error) to user
+            })
         };
         $scope.search = function() {
             search();
@@ -49,9 +54,16 @@
     viewModelControllers.controller('entitiesController', function($scope, cfpLoadingBar, ViewModelEntityService) {
         cfpLoadingBar.start()
         $scope.loadEntities = function() {
-            $scope.entities = ViewModelEntityService.query();
-            var ArrViews = $.map($scope.entities, function(data){ return data.views; });
-            $scope.maxViews = Math.max.apply(Math, ArrViews);
+            var promise = ViewModelEntityService.queryEntities();
+            promise.then(function(data) {
+                $scope.entities = data;
+                var ArrViews = $.map($scope.entities, function (data) {
+                    return data.views;
+                });
+                $scope.maxViews = Math.max.apply(Math, ArrViews);
+            }, function (data) {
+                // Log (error) to user
+            });
         };
         $scope.search = function() {
             search();
@@ -61,18 +73,23 @@
         }
     });
 
-    // controller for view slide page
-    viewModelControllers.controller('viewSlideController', function($scope, $sce, cfpLoadingBar, ViewModelSlideService) {
+    // controller for view topic page
+    viewModelControllers.controller('viewTopicController', function($scope, $sce, cfpLoadingBar, ViewModelTopicService) {
         cfpLoadingBar.start();
         var stepCount = 0;
-        $scope.loadSlide = function(topic) {
-            $scope.slide = ViewModelSlideService.get({slideId:topic}, function(slide) {
-                $scope.topic = slide.topic;
-                $scope.slideSteps = slide.slideSteps;
-                $scope.userCase = $sce.trustAsHtml(converter.makeHtml(slide.userCase));
-                stepCount = $scope.slideSteps.length;
+
+        $scope.loadTopic = function(name) {
+            var promise = ViewModelTopicService.queryTopic(name);
+            promise.then(function(data) {
+                $scope.topic = data;
+                $scope.title = data.title;
+                $scope.topicSteps = data.topicSteps;
+                $scope.userCase = $sce.trustAsHtml(converter.makeHtml(data.userCase));
+                stepCount = $scope.topicSteps.length;
                 $scope.initSlider(stepCount, '');
-            })
+            }, function(data) {
+                // Log (error) to user
+            });
         };
         $scope.initSlider = function(sCount, setValue) {
             $scope.slider = {
@@ -108,23 +125,28 @@
         };
     });
 
-    // controller for slides page
-    viewModelControllers.controller('slidesController', function($scope, cfpLoadingBar, ViewModelSlideService) {
+    // controller for topics page
+    viewModelControllers.controller('topicsController', function($scope, cfpLoadingBar, ViewModelTopicService) {
         cfpLoadingBar.start()
-        $scope.loadSlides = function() {
-            $scope.slides = ViewModelSlideService.query();
+        $scope.loadTopics = function() {
+            var promise = ViewModelTopicService.queryTopics();
+            promise.then(function(data) {
+                $scope.topics = data;
+            }, function(data) {
+                // Log (error) to user
+            });
         };
         $scope.search = function() {
             search();
         };
     });
 
-    // controller for edit slide page
-    viewModelControllers.controller('editSlideController', function($scope, $http, cfpLoadingBar) {
+    // controller for edit topic page
+    viewModelControllers.controller('editTopicController', function($scope, $http, cfpLoadingBar) {
         cfpLoadingBar.start();
         var simplemde;
-        $scope.loadEditSlide = function() {
-            simplemde = new SimpleMDE({ element: $("#txtSlideEdit")[0] });
+        $scope.loadEditTopic = function() {
+            simplemde = new SimpleMDE({ element: $("#txtTopicEdit")[0] });
         };
         $scope.search = function() {
             search();
@@ -145,7 +167,7 @@
     viewModelControllers.controller('homeController', function($scope, $http, cfpLoadingBar) {
         cfpLoadingBar.start();
         $scope.loadHome = function() {
-            var contributionUrl = "/javascripts/sample1/datas-years.json";
+            var contributionUrl = "/javascripts/sample/datas-years.json";
             $http.get(contributionUrl).success( function(response) {
                 $scope.loadContributionCalendar(response);
             });
@@ -209,6 +231,5 @@
         else
             return 0; //It is not IE
     }
-
 
 })();

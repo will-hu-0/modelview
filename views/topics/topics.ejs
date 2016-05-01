@@ -10,15 +10,15 @@
         <li class="current">Topics</li>
     </ul>
 
-    <div class="row" ng-controller="slidesController" ng-init="loadSlides()" >
+    <div class="row" ng-controller="topicsController" ng-init="loadTopics()" >
         <div class="col-md-12">
-            <div class="col-xs-4 col-lg-4" ng-repeat="slide in slides | filter:collectionFilter ">
-                <a ng-href="../slides/{{slide.id}}" class="exploregrid-item"
+            <div class="col-xs-4 col-lg-4" ng-repeat="topic in topics | filter:collectionFilter ">
+                <a ng-href="../topics/{{topic.name}}" class="exploregrid-item"
                    ng-class="{'exploregrid-item-hover':hovering}" ng-mouseover="hovering=true"
                    ng-mouseleave="hovering=false" >
                     <div class="exploregrid-item-header"></div>
-                    <h4 class="exploregrid-item-title">{{slide.topic}}</h4>
-                    {{slide.description}}
+                    <h4 class="exploregrid-item-title">{{topic.title}}</h4>
+                    {{topic.description}}
                 </a>
             </div>
         </div>

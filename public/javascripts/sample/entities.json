@@ -1,0 +1,16 @@
+[
+  { "entityName":"Policy", "views":380, "likes":12, "owner":"James Cai" },
+  { "entityName":"Claim", "views":350, "likes":12, "owner":"Will Hu" },
+  { "entityName":"SC_Job", "views":227, "likes":10, "owner":"Joseph Li" },
+  { "entityName":"Game", "views":77, "likes":4, "owner":"Estella" },
+  { "entityName":"Family", "views":32, "likes":5, "owner":"Atkins Luke" },
+  { "entityName":"Company", "views":10, "likes":5, "owner":"Phil Jeffery" },
+  { "entityName":"White", "views":11, "likes":5, "owner":"Will Hu" },
+  { "entityName":"Session", "views":11, "likes":1, "owner":"Baris" },
+  { "entityName":"Cache", "views":9, "likes":1, "owner":"AZAD Virat" },
+  { "entityName":"jQuery", "views":112, "likes":1, "owner":"Jack Mi" },
+  { "entityName":"AngularJS", "views":66, "likes":1, "owner":"Larry Page" },
+  { "entityName":"JAVA", "views":155, "likes":5, "owner":"Johnny R" },
+  { "entityName":"ASP.NET", "views":112, "likes":7, "owner":"Peter Rabiit" },
+  { "entityName":"Ruby", "views":80, "likes":4, "owner":"Joseph Li" }
+]

@@ -10,7 +10,7 @@ var fs = require('fs');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var entities = require('./routes/entities');
-var slides = require('./routes/slides');
+var topics = require('./routes/topics');
 var common = require('./util/common.js');
 var config = JSON.parse(fs.readFileSync('./configs/config.json').toString());
 
@@ -35,7 +35,7 @@ app.use(express.static(path.join(__dirname, 'public'), {maxAge: oneMonth}));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/entities', entities);
-app.use('/slides', slides);
+app.use('/topics', topics);
 
 // define the global variable
 //app.locals.mode = config.mode;

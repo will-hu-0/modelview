@@ -1,0 +1,26 @@
+{
+  "name": "how_to_do_payment",
+  "title": "How to do the payment?",
+  "description": "You may learn how to do the payment in the system...",
+  "userCase": "<p>Step1.Go to the menu and open it</p><p>Step2.Modernizr is a small piece of JavaScript code that automatically detects the availability</p>",
+  "topicSteps":[
+    {
+      "stepId": 0,
+      "shortDescription": "Go to menu and open Ready to pay.",
+      "description": "Go to menu and open Ready to pay.",
+      "screenShotUrl": "../javascripts/sample/1.jpg"
+    },
+    {
+      "stepId": 1,
+      "shortDescription": "Go to menu and open Ready to pay.",
+      "description": "Go to menu and open Ready to pay.",
+      "screenShotUrl": "../javascripts/sample/2.jpg"
+    },
+    {
+      "stepId": 2,
+      "shortDescription": "Go to menu and open Ready to pay.",
+      "description": "Go to menu and open Ready to pay.",
+      "screenShotUrl": "../javascripts/sample/3.jpg"
+    }
+  ]
+}
