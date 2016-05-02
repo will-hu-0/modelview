@@ -6,6 +6,18 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var fs = require('fs');
+var mount_uploadify = require('uploadify');
+
+var app = express();
+
+mount_uploadify(app,{
+  path:'/fileupload',
+  fileKey:'myfile',
+  multer:{ dest: 'uploads/' },
+  callback:function(req){
+    console.log(111);
+    return req.files  }
+});
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -14,7 +26,7 @@ var topics = require('./routes/topics');
 var common = require('./util/common.js');
 var config = JSON.parse(fs.readFileSync('./configs/config.json').toString());
 
-var app = express();
+
 
 //var oneMonth = 2592000000;
 var oneMonth =1;

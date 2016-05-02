@@ -143,10 +143,23 @@
 
     // controller for edit topic page
     viewModelControllers.controller('editTopicController', function($scope, $http, cfpLoadingBar) {
+        $scope.formData = {};
+        // process the form
+        $scope.processForm = function() {
+            $(".ajax-file-upload-container").find(".form-control").each(function (i, items) {
+                //alert(items.value);
+            });
+            //TODO need to add validation
+            $scope.formData.name = $scope.formData.title.replace(/\s+/g,'_');   // build name
+            $scope.formData.description = simplemde.value();    // build userCase
+            console.log($scope.formData);
+        };
+
         cfpLoadingBar.start();
         var simplemde;
         $scope.loadEditTopic = function() {
-            simplemde = new SimpleMDE({ element: $("#txtTopicEdit")[0] });
+            simplemde = new SimpleMDE({ element: $("#userCase")[0] });
+            loadImageUploader();
         };
         $scope.search = function() {
             search();
@@ -156,6 +169,37 @@
         };
         cfpLoadingBar.complete();
     });
+
+    function loadImageUploader() {
+        var extraObj = $("#extraupload").uploadFile({
+            url: "/fileupload/",
+            fileName: "myfile",
+            acceptFiles: "image/*",
+            showPreview: true,
+            previewHeight: "100px",
+            previewWidth: "100px",
+            sequential: true,
+            onSuccess: function (files, response, xhr, pd) {
+                //alert(JSON.stringify(files));
+                $(".ajax-file-upload-container").find("#stepDesc").each(function (i, items) {
+                    alert(items.value);
+                });
+            },
+            extraHTML: function () {
+                var html = "<div class='extraUploadTempContainer'>" +
+                    "<div class='extraUploadTempTitle'><b>SCREENSHOT DESCRIPTION:</b></div>" +
+                    "<div class='extraUploadTempContent'>" +
+                    "<input type='text' class='form-control' name='stepDesc' placeholder='Input the step description here..'/>" +
+                    "</div>" +
+                    "</div>";
+                return html;
+            },
+            autoSubmit: false
+        });
+        $("#extrabutton").click(function () {
+            extraObj.startUpload();
+        });
+    }
 
     $('#txtQueryEntity').keydown(function(event) {
         if (event.keyCode == 13) {
