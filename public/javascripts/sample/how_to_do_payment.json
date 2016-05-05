@@ -6,21 +6,18 @@
   "topicSteps":[
     {
       "stepId": 0,
-      "shortDescription": "Go to menu and open Ready to pay.",
-      "description": "Go to menu and open Ready to pay.",
-      "screenShotUrl": "../javascripts/sample/1.jpg"
+      "shortDescription": "0Go to menu and open Ready to pay.",
+      "screenShotUrl": "/uploads/1"
     },
     {
       "stepId": 1,
-      "shortDescription": "Go to menu and open Ready to pay.",
-      "description": "Go to menu and open Ready to pay.",
-      "screenShotUrl": "../javascripts/sample/2.jpg"
+      "shortDescription": "1Go to menu and open Ready to pay.",
+      "screenShotUrl": "/uploads/2"
     },
     {
       "stepId": 2,
-      "shortDescription": "Go to menu and open Ready to pay.",
-      "description": "Go to menu and open Ready to pay.",
-      "screenShotUrl": "../javascripts/sample/3.jpg"
+      "shortDescription": "2Go to menu and open Ready to pay.",
+      "screenShotUrl": "/uploads/3"
     }
   ]
 }

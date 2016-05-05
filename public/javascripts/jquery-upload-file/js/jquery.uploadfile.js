@@ -197,7 +197,7 @@
         //This is for showing Old files to user.
         this.createProgress = function (filename,filepath,filesize) {
             var pd = new createProgressDiv(this, s);
-            pd.progressDiv.show();
+            pd.progressDiv.show(500);
             pd.progressbar.width('100%');
 
             var fileNameStr = "";
@@ -216,20 +216,23 @@
             if(s.showPreview)
             {
                 pd.preview.attr('src',filepath);
-                pd.preview.show();
+                pd.preview.show(500);
             }
             
             if(s.showDownload) {
-                pd.download.show();
+                pd.download.show(500);
                 pd.download.click(function () {
                     if(s.downloadCallback) s.downloadCallback.call(obj, [filename]);
                 });
             }
+
             if(s.showDelete)
             {
-	            pd.del.show();
+	            pd.del.show(500);
     	        pd.del.click(function () {
-        	        pd.statusbar.hide().remove();
+        	        //pd.statusbar.hide().remove();
+                    pd.statusbar.hide(300, function(){ pd.statusbar.remove(); });
+
             	    var arr = [filename];
                 	if(s.deleteCallback) s.deleteCallback.call(this, arr, pd);
 	                obj.selectedFiles -= 1;
@@ -489,7 +492,7 @@
 
         function getSrcToPreview(file, obj) {
             if(file) {
-                obj.show();
+                obj.show(500);
                 var reader = new FileReader();
                 reader.onload = function (e) {
                     obj.attr('src', e.target.result);
@@ -647,17 +650,17 @@
             this.preview = $("<img class='ajax-file-upload-preview' />").width(s.previewWidth).height(s.previewHeight).appendTo(this.statusbar).hide();
             this.progressDiv = $("<div class='ajax-file-upload-progress'>").appendTo(this.statusbar).hide();
             this.progressbar = $("<div class='ajax-file-upload-bar'></div>").appendTo(this.progressDiv);
-            this.abort = $("<div>" + s.abortStr + "</div>").appendTo(this.statusbar).hide();
-            this.cancel = $("<div>" + s.cancelStr + "</div>").appendTo(this.statusbar).hide();
-            this.done = $("<div>" + s.doneStr + "</div>").appendTo(this.statusbar).hide();
-            this.download = $("<div>" + s.downloadStr + "</div>").appendTo(this.statusbar).hide();
-            this.del = $("<div>" + s.deletelStr + "</div>").appendTo(this.statusbar).hide();
+            this.abort = $("<div class='ajax-file-upload-button-container'>" + s.abortStr + "</div>").appendTo(this.statusbar).hide();
+            this.cancel = $("<div class='ajax-file-upload-button-container'>" + s.cancelStr + "</div class='buttonContainer'>").appendTo(this.statusbar).hide();
+            this.done = $("<div class='ajax-file-upload-button-container'>" + s.doneStr + "</div>").appendTo(this.statusbar).hide();
+            this.download = $("<div class='ajax-file-upload-button-container'>" + s.downloadStr + "</div>").appendTo(this.statusbar).hide();
+            this.del = $("<div class='ajax-file-upload-button-container'>" + s.deletelStr + "</div>").appendTo(this.statusbar).hide();
 
             this.abort.addClass("btn btn-default btn-sm");
             this.done.addClass("btn btn-success btn-sm");
 			this.download.addClass("btn btn-success btn-sm");
             this.cancel.addClass("btn btn-default btn-sm");
-            this.del.addClass("btn btn-warning btn-sm");
+            this.del.addClass("btn btn-primary btn-sm");
             
 			return this;
 		}
@@ -722,12 +725,14 @@
                         return true;
                     }
                     pd.statusbar.append("<div class='" + s.errorClass + "'>" + s.uploadErrorStr + "</div>");
-                    pd.cancel.show()
+                    pd.cancel.show(500)
                     form.remove();
                     pd.cancel.click(function () {
-                    	 mainQ.splice(mainQ.indexOf(form), 1);
+                    	mainQ.splice(mainQ.indexOf(form), 1);
                         removeExistingFileName(obj, fileArray);
-                        pd.statusbar.remove();
+                        //pd.statusbar.remove();
+                        alert('s');
+                        pd.statusbar.hide(500, function(){ pd.statusbar.remove(); });
                         s.onCancel.call(obj, fileArray, pd);
                         obj.selectedFiles -= fileArray.length; //reduce selected File count
                         updateFileCounter(s, obj);
@@ -736,11 +741,11 @@
                 },
                 beforeSend: function (xhr, o) {
 
-                    pd.progressDiv.show();
-                    pd.cancel.hide();
-                    pd.done.hide();
+                    pd.progressDiv.show(500);
+                    pd.cancel.hide(500);
+                    pd.done.hide(500);
                     if(s.showAbort) {
-                        pd.abort.show();
+                        pd.abort.show(500);
                         pd.abort.click(function () {
                             removeExistingFileName(obj, fileArray);
                             xhr.abort();
@@ -775,10 +780,10 @@
                         var msg = data[s.customErrorKeyStr];
                         s.onError.call(this, fileArray, 200, msg, pd);
                         if(s.showStatusAfterError) {
-                            pd.progressDiv.hide();
+                            pd.progressDiv.hide('slow');
                             pd.statusbar.append("<span class='" + s.errorClass + "'>ERROR: " + msg + "</span>");
                         } else {
-                            pd.statusbar.hide();
+                            pd.statusbar.hide('slow');
                             pd.statusbar.remove();
                         }
                         obj.selectedFiles -= fileArray.length; //reduce selected File count
@@ -805,7 +810,7 @@
                             pd.done.hide();
                         }
                         if(s.showDelete) {
-                            pd.del.show();
+                            pd.del.show(500);
                             pd.del.click(function () {
 		                        removeExistingFileName(obj, fileArray);
                                 pd.statusbar.hide().remove();

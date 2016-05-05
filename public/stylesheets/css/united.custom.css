@@ -469,3 +469,13 @@ a:hover{
   background-color: #3b6427;
   fill: #3b6427
 }
+
+/* uploader in edit topic page */
+.ajax-file-upload-bar {
+  background-color: #dd4814;
+  width: 0;
+  height: 20px;
+  border-radius: 3px;
+  color:#FFFFFF;
+
+}

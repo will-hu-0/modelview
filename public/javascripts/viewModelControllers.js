@@ -1,5 +1,20 @@
 'use strict';
 
+// Define reverse for jquery
+jQuery.fn.reverse = [].reverse;
+
+// Define array remove function
+Array.prototype.remove = function() {
+    var what, a = arguments, L = a.length, ax;
+    while (L && this.length) {
+        what = a[--L];
+        while ((ax = this.indexOf(what)) !== -1) {
+            this.splice(ax, 1);
+        }
+    }
+    return this;
+};
+
 (function() {
 
     var viewModelControllers = angular.module('viewModelControllers',[]);
@@ -141,25 +156,48 @@
         };
     });
 
+
     // controller for edit topic page
-    viewModelControllers.controller('editTopicController', function($scope, $http, cfpLoadingBar) {
+    viewModelControllers.controller('editTopicController', function($scope, $http, cfpLoadingBar, ViewModelTopicService) {
+        var tempFilesArray = new Array();   //Temp array for upload files
         $scope.formData = {};
+        var simplemde;
         // process the form
         $scope.processForm = function() {
+            //alert(tempFilesArray);
             $(".ajax-file-upload-container").find(".form-control").each(function (i, items) {
                 //alert(items.value);
             });
             //TODO need to add validation
-            $scope.formData.name = $scope.formData.title.replace(/\s+/g,'_');   // build name
-            $scope.formData.description = simplemde.value();    // build userCase
-            console.log($scope.formData);
+            $scope.formData.title = $scope.formData.title;  // build title
+            $scope.formData.description = $scope.formData.description;  // build description
+            $scope.formData.name = $scope.formData.title.replace(/[^\d\w]+/g,"_");   // build name
+            $scope.formData.userCase = simplemde.value();    // build userCase
+
+            var topic = JSON.stringify({
+                    title: $scope.formData.title,
+                    description: $scope.formData.description,
+                    name: $scope.formData.name,
+                    userCase: $scope.formData.userCase
+                });
+            var promise = ViewModelTopicService.postTopic(topic);
+            promise.then(function(data) {
+                alert(data);
+            }, function(data) {
+                // Log (error) to user
+            });
         };
 
         cfpLoadingBar.start();
-        var simplemde;
-        $scope.loadEditTopic = function() {
+
+        $scope.loadEditTopic = function(name) {
             simplemde = new SimpleMDE({ element: $("#userCase")[0] });
-            loadImageUploader();
+            var promise = ViewModelTopicService.queryTopic(name);
+            promise.then(function(data) {
+                loadImageUploader(data.topicSteps, tempFilesArray);
+            }, function(data) {
+                // Log (error) to user
+            });
         };
         $scope.search = function() {
             search();
@@ -170,24 +208,47 @@
         cfpLoadingBar.complete();
     });
 
-    function loadImageUploader() {
+    function loadImageUploader(existingFiles, tempFilesArray) {
         var extraObj = $("#extraupload").uploadFile({
             url: "/fileupload/",
             fileName: "myfile",
+            allowedTypes: "jpg,png,gif,jpeg",
             acceptFiles: "image/*",
             showPreview: true,
+            showDelete: true,
             previewHeight: "100px",
-            previewWidth: "100px",
+            previewWidth: "140px",
             sequential: true,
-            onSuccess: function (files, response, xhr, pd) {
-                //alert(JSON.stringify(files));
-                $(".ajax-file-upload-container").find("#stepDesc").each(function (i, items) {
-                    alert(items.value);
+            showFileSize: false,
+            uploadStr: "CHOOSE FILES",
+            onLoad:function(obj) {
+                // load preview images
+                for(var i=0;i<existingFiles.length;i++) {
+                    var imagePath = existingFiles[i]["screenShotUrl"];  // => /uploads/1234
+                    var imageName = imagePath.substring(imagePath.lastIndexOf('/')+1);  // => 1234
+                    obj.createProgress(imageName,imagePath, 200);
+                    tempFilesArray.push(imageName); //load existing files into the file array
+                }
+                // load step description
+                $(".ajax-file-upload-container").find(".form-control").reverse().each(function (i, items) {
+                    items.value = existingFiles[i]["shortDescription"];
                 });
+            },
+            onSuccess: function (files, response, xhr, pd) {
+                tempFilesArray.push(files[0].replace(/\.[^/.]+$/, ""));
+            },
+            deleteCallback: function (data, pd) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i] instanceof Object) {
+                        tempFilesArray.remove(data[i].originalname.replace(/\.[^/.]+$/, "")); // Remove newly uploaded file
+                    } else {
+                        tempFilesArray.remove(data[i]); // Remove existing file
+                    }
+                }
             },
             extraHTML: function () {
                 var html = "<div class='extraUploadTempContainer'>" +
-                    "<div class='extraUploadTempTitle'><b>SCREENSHOT DESCRIPTION:</b></div>" +
+                    //"<div class='extraUploadTempTitle'><b>SCREENSHOT DESCRIPTION:</b></div>" +
                     "<div class='extraUploadTempContent'>" +
                     "<input type='text' class='form-control' name='stepDesc' placeholder='Input the step description here..'/>" +
                     "</div>" +

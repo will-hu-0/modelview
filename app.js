@@ -15,7 +15,7 @@ mount_uploadify(app,{
   fileKey:'myfile',
   multer:{ dest: 'uploads/' },
   callback:function(req){
-    console.log(111);
+    //console.log(req.query);
     return req.files  }
 });
 
@@ -25,7 +25,6 @@ var entities = require('./routes/entities');
 var topics = require('./routes/topics');
 var common = require('./util/common.js');
 var config = JSON.parse(fs.readFileSync('./configs/config.json').toString());
-
 
 
 //var oneMonth = 2592000000;
@@ -43,6 +42,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(compression());
 app.use(express.static(path.join(__dirname, 'public'), {maxAge: oneMonth}));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'), {maxAge: oneMonth}));
 
 app.use('/', routes);
 app.use('/users', users);

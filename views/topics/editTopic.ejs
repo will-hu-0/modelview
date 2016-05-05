@@ -4,13 +4,13 @@
 <% include ../header_united.ejs %>
 <% } %>
 
-<div class="row" ng-controller="editTopicController" ng-init="loadEditTopic()" >
+<div class="row" ng-controller="editTopicController" ng-init="loadEditTopic('how_to_do_the_payment')" >
     <% include ../functions/navbar.ejs %>
 
     <div class="container">
         <div class="col-md-12">
             <div class="well">
-                <form class="form-horizontal" ng-submit="processForm()">
+                <form class="form-horizontal">
                     <fieldset>
                         <legend>EDIT</legend>
                         <div class="form-group">
@@ -43,10 +43,9 @@
                         <div class="form-group">
                             <div class="col-md-10 col-md-offset-2">
                                 <button type="reset" class="btn btn-default">Cancel</button>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary" ng-click="processForm()">Submit</button>
                             </div>
                         </div>
-                        {{ formData }}
                     </fieldset>
                 </form>
             </div>
