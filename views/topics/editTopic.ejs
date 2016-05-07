@@ -10,19 +10,27 @@
     <div class="container">
         <div class="col-md-12">
             <div class="well">
-                <form class="form-horizontal">
+                <form class="form-horizontal" name="topicForm" novalidate>
                     <fieldset>
-                        <legend>{{legend}}</legend>
+                        <legend id="legendTopic">{{legend}}</legend>
+                        <div id="alertErrorEditTopic" class="alert alert-danger" style="display: none;"></div>
+                        <div id="alertWarningEditTopic" class="alert alert-warning" style="display: none;"></div>
                         <div class="form-group">
                             <label for="inputTopic" class="col-md-2 control-label">TITLE</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" name="title" id="title" ng-model="formData.title" placeholder="Input your title here..">
+                                <input type="text" class="form-control" name="title" id="title" ng-model="title" placeholder="Input your title here.." required>
+                                <div class="formValidationError" ng-show="topicForm.title.$dirty && topicForm.title.$invalid">
+                                  <span ng-show="topicForm.title.$error.required">Hey man, Title is necessary...</span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputTopic" class="col-md-2 control-label">DESCRIPTOIN</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" name="description" id="description" ng-model="formData.description" placeholder="Input your description here..">
+                                <input type="text" class="form-control" name="description" id="description" ng-model="description" placeholder="Input your description here..">
+                                <div class="formValidationError" ng-show="topicForm.description.$dirty && topicForm.description.$invalid">
+                                    <span ng-show="topicForm.description.$error.required">Description is necessary..</span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -37,13 +45,32 @@
                                 <div id="extraupload">Upload</div>
                             </div>
                             <div class="col-md-2">
-                                <input type="button" class="btn btn-success btn-sm" id="extrabutton" value="Start Upload" />
+                                <button type="button" class="btn btn-success btn-sm" id="extrabutton"
+                                       data-trigger="hover"
+                                       data-container="body" data-toggle="popover" data-placement="bottom"
+                                       data-content="You need click it after selecting the pictures..">
+                                    Start Upload
+                                </button>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-10 col-md-offset-2">
-                                <button type="reset" class="btn btn-default">Cancel</button>
-                                <button type="submit" class="btn btn-primary" ng-click="processForm()">Submit</button>
+                                <button type="reset" class="btn btn-default" >Cancel</button>
+                                <button type="button" class="btn btn-primary">Save draft</button>
+                                <button type="submit" class="btn btn-primary" ng-click="processForm()">Publish</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <p></p>
+                                <div class="alert alert-dismissible alert-info">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    <h4>TAKE A LOOK:</h4>
+                                    <p><strong>* Cancel</strong>: Nothing would be saved.</p>
+                                    <p><strong>* Save draft</strong>: You may continue to edit the page by yourself next time.</p>
+                                    <p><strong>* Publish</strong>: Everyone may see your masterwork!</p>
+                                </div>
                             </div>
                         </div>
                     </fieldset>

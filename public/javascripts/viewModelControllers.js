@@ -184,14 +184,62 @@ Array.prototype.remove = function() {
 
         // process the form
         $scope.processForm = function() {
-            //TODO need to add validation
-            $scope.formData.title = $scope.formData.title;  // build title
-            $scope.formData.description = $scope.formData.description;  // build description
-            $scope.formData.name = $scope.formData.title.replace(/[^\d\w]+/g,"_");   // build name
-            $scope.formData.userCase = simplemde.value();    // build userCase
+            if (!validateErrorEditTopic()) return;
+            if (!passValidateWarningTopicSteps()) return;
 
+            $scope.formData.title = $scope.title;  // build title
+            $scope.formData.description = $scope.description;  // build description
+            $scope.formData.name = $scope.title.replace(/[^\d\w]+/g,"_");   // build name
+            $scope.formData.userCase = simplemde.value();    // build userCase
             postTopic($scope.formData);
         };
+
+        function validateErrorEditTopic() {
+            var alertMsg = "";
+            if ( $.trim($('#title').val()) == '') {
+                alertMsg += "* You might need to put the Title.<br>";
+            }
+            if ( $.trim($('#description').val()) == '') {
+                alertMsg += "* You might need to put the Description.<br>";
+            }
+            if ($.trim(simplemde.value()) == '') {
+                alertMsg += "* You might need to put the UserCase.<br>";
+            }
+            if (!passValidateErrorTopicSteps()) {
+                alertMsg += "* You might need to upload some pictures for topicSteps.<br>";
+            }
+            if (alertMsg != "") {
+                $('#alertErrorEditTopic').html(alertMsg);
+                $('#legendTopic').focus();
+                $('#alertErrorEditTopic').show(200);
+                return false;
+            } else {
+                $('#alertErrorEditTopic').html(alertMsg);
+                $('#alertErrorEditTopic').hide();
+                return true;
+            }
+
+        }
+
+        function passValidateErrorTopicSteps() {
+            return $(".ajax-file-upload-container").find(".ajax-file-upload-serverfilename").length > 0;
+        }
+
+        function passValidateWarningTopicSteps() {
+            // User has close the warning.
+            if ($('#alertWarningEditTopic').length == 0) return true;
+
+            var cancelButton = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
+            var unUploadedFiles = $(".ajax-file-upload-container").find(".ajax-file-upload-cancel").length;
+            var allFiles = $(".ajax-file-upload-container").find(".form-control").length;
+            if (unUploadedFiles > 0) {
+                $('#legendTopic').focus();
+                $('#alertWarningEditTopic').html(cancelButton + "Some pictures have not been uploaded yet..<br>You may ignore the warning by close it with the right button.");
+                $('#alertWarningEditTopic').show(200);
+                return false;
+            }
+            return true;
+        }
 
         function postTopic(topic) {
             var promise = ViewModelTopicService.postTopic(topic);
@@ -211,12 +259,10 @@ Array.prototype.remove = function() {
                 step.screenShotUrl = "/uploads/" + item.innerText;
                 step.topic_Id = topic_id;
                 stepsArray.push(step);
-                console.log(item.innerHTML);
             });
 
             $(".ajax-file-upload-container").find(".form-control").reverse().each(function (i, item) {
                 stepsArray[i].description = item.value;
-                console.log(stepsArray[i]);
             });
 
             var promise = ViewModelTopicService.postTopicSteps(stepsArray);
@@ -357,6 +403,8 @@ Array.prototype.remove = function() {
     $('.carousel').carousel({
         interval: false
     });
+
+    $("[data-toggle='popover']").popover();
 
     function getIEVersion() {
         var sAgent = window.navigator.userAgent;
