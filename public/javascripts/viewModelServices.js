@@ -53,6 +53,17 @@ vServices.factory('ViewModelTopicService', ['$http', '$q', function($http, $q) {
             success(function(data, status, headers, config) { deferred.resolve(data); }).
             error(function(data, status, headers, config) { deferred.reject(data); });
             return deferred.promise;
+        },
+
+        postTopicSteps: function(topicSteps) {
+            var deferred = $q.defer();
+            $http({method: 'POST',
+                url: REST_SERVICE_URI + "/topicstep",
+                data: topicSteps,
+                headers: {'Content-Type': 'application/json; charset=utf-8'}}).
+            success(function(data, status, headers, config) { deferred.resolve(data); }).
+            error(function(data, status, headers, config) { deferred.reject(data); });
+            return deferred.promise;
         }
     };
 }]);

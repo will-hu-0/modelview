@@ -18,13 +18,13 @@
                         <table ng-table="entitiesTable" class="table table-striped">
                             <tr ng-repeat="column in entityData" >
                                 <td>*</td>
-                                <td data-title="'FIELDNAME'" sortable="'name'">
+                                <td data-title="'COLUMN NAME'" sortable="'columnName'">
                                     <div ng-show="'{{existEntitiesArray}}'.indexOf('{{ column.columnName }}')==-1">{{ column.columnName }}</div>
                                     <div ng-show="'{{existEntitiesArray}}'.indexOf('{{ column.columnName }}')>-1">
                                         <b><a href="/Entities/{{ column.columnName }}">{{ column.columnName }}</a></b>
                                     </div>
                                 </td>
-                                <td data-title="'FIELDTYPE'" sortable="'fieldType'">{{ column.columnType }}</td>
+                                <td data-title="'COLUMN TYPE'" sortable="'columnType'">{{ column.columnType }}</td>
                             </tr>
                         </table>
                     </div>

@@ -159,46 +159,77 @@ Array.prototype.remove = function() {
 
     // controller for edit topic page
     viewModelControllers.controller('editTopicController', function($scope, $http, cfpLoadingBar, ViewModelTopicService) {
+        cfpLoadingBar.start();
         var tempFilesArray = new Array();   //Temp array for upload files
         $scope.formData = {};
         var simplemde;
+
+        // Edit topic or Create new topic
+        $scope.loadEditTopic = function(name) {
+            simplemde = new SimpleMDE({ element: $("#userCase")[0] });
+            if (name != '') {
+                // Edit model
+                var promise = ViewModelTopicService.queryTopic(name);
+                promise.then(function(data) {
+                    $scope.legend = data.title;
+                    loadImageUploader(data.topicSteps, tempFilesArray);
+                }, function(data) {
+                    // Log (error) to user
+                });
+            } else {
+                loadImageUploader(null, tempFilesArray);
+                $scope.legend = "NEW TOPIC";
+            }
+        };
+
         // process the form
         $scope.processForm = function() {
-            //alert(tempFilesArray);
-            $(".ajax-file-upload-container").find(".form-control").each(function (i, items) {
-                //alert(items.value);
-            });
             //TODO need to add validation
             $scope.formData.title = $scope.formData.title;  // build title
             $scope.formData.description = $scope.formData.description;  // build description
             $scope.formData.name = $scope.formData.title.replace(/[^\d\w]+/g,"_");   // build name
             $scope.formData.userCase = simplemde.value();    // build userCase
 
-            var topic = JSON.stringify({
-                    title: $scope.formData.title,
-                    description: $scope.formData.description,
-                    name: $scope.formData.name,
-                    userCase: $scope.formData.userCase
-                });
+            postTopic($scope.formData);
+        };
+
+        function postTopic(topic) {
             var promise = ViewModelTopicService.postTopic(topic);
             promise.then(function(data) {
-                alert(data);
+                postTopicStep(data, topic.name);
             }, function(data) {
                 // Log (error) to user
             });
-        };
+        }
 
-        cfpLoadingBar.start();
+        function postTopicStep(topic_id, topicName) {
+            var stepsArray = new Array();
+            //alert(tempFilesArray);
+            $(".ajax-file-upload-container").find(".ajax-file-upload-serverfilename").reverse().each(function (i, item) {
+                var step = new Object();
+                step.stepId = i;
+                step.screenShotUrl = "/uploads/" + item.innerText;
+                step.topic_Id = topic_id;
+                stepsArray.push(step);
+                console.log(item.innerHTML);
+            });
 
-        $scope.loadEditTopic = function(name) {
-            simplemde = new SimpleMDE({ element: $("#userCase")[0] });
-            var promise = ViewModelTopicService.queryTopic(name);
+            $(".ajax-file-upload-container").find(".form-control").reverse().each(function (i, item) {
+                stepsArray[i].description = item.value;
+                console.log(stepsArray[i]);
+            });
+
+            var promise = ViewModelTopicService.postTopicSteps(stepsArray);
             promise.then(function(data) {
-                loadImageUploader(data.topicSteps, tempFilesArray);
+                //alert('Successfully!');
+                $(location).attr('href', '/topics/' + topicName);
             }, function(data) {
                 // Log (error) to user
             });
-        };
+
+        }
+
+
         $scope.search = function() {
             search();
         };
@@ -213,6 +244,7 @@ Array.prototype.remove = function() {
             url: "/fileupload/",
             fileName: "myfile",
             allowedTypes: "jpg,png,gif,jpeg",
+            allowDuplicates: false,
             acceptFiles: "image/*",
             showPreview: true,
             showDelete: true,
@@ -222,25 +254,27 @@ Array.prototype.remove = function() {
             showFileSize: false,
             uploadStr: "CHOOSE FILES",
             onLoad:function(obj) {
-                // load preview images
-                for(var i=0;i<existingFiles.length;i++) {
-                    var imagePath = existingFiles[i]["screenShotUrl"];  // => /uploads/1234
-                    var imageName = imagePath.substring(imagePath.lastIndexOf('/')+1);  // => 1234
-                    obj.createProgress(imageName,imagePath, 200);
-                    tempFilesArray.push(imageName); //load existing files into the file array
+                if (typeof existingFiles != 'undefined' && existingFiles != null) {
+                    // load preview images
+                    for (var i = 0; i < existingFiles.length; i++) {
+                        var imagePath = existingFiles[i]["screenShotUrl"];  // => /uploads/1234
+                        var imageName = imagePath.substring(imagePath.lastIndexOf('/') + 1);  // => 1234
+                        obj.createProgress(imageName, imagePath, 200);
+                        tempFilesArray.push(imageName); //load existing files into the file array
+                    }
+                    // load step description
+                    $(".ajax-file-upload-container").find(".form-control").reverse().each(function (i, items) {
+                        items.value = existingFiles[i]["shortDescription"];
+                    });
                 }
-                // load step description
-                $(".ajax-file-upload-container").find(".form-control").reverse().each(function (i, items) {
-                    items.value = existingFiles[i]["shortDescription"];
-                });
             },
             onSuccess: function (files, response, xhr, pd) {
-                tempFilesArray.push(files[0].replace(/\.[^/.]+$/, ""));
+                tempFilesArray.push(response[0].filename.replace(/\.[^/.]+$/, ""));
             },
             deleteCallback: function (data, pd) {
                 for (var i = 0; i < data.length; i++) {
                     if (data[i] instanceof Object) {
-                        tempFilesArray.remove(data[i].originalname.replace(/\.[^/.]+$/, "")); // Remove newly uploaded file
+                        tempFilesArray.remove(data[i].filename.replace(/\.[^/.]+$/, "")); // Remove newly uploaded file
                     } else {
                         tempFilesArray.remove(data[i]); // Remove existing file
                     }
@@ -315,7 +349,7 @@ Array.prototype.remove = function() {
         $.cookie('modelviewTheme','darkly', { path: '/', expires: 7 });
         window.location.reload();
     });
-    $('#navSetLight').click (function() {
+    $('.navSetLight').click (function() {
         $.cookie('modelviewTheme','united', { path: '/', expires: 7 });
         window.location.reload();
     });

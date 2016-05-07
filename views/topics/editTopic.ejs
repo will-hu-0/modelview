@@ -4,7 +4,7 @@
 <% include ../header_united.ejs %>
 <% } %>
 
-<div class="row" ng-controller="editTopicController" ng-init="loadEditTopic('how_to_do_the_payment')" >
+<div class="row" ng-controller="editTopicController" ng-init="loadEditTopic('<%=topicName%>')" >
     <% include ../functions/navbar.ejs %>
 
     <div class="container">
@@ -12,7 +12,7 @@
             <div class="well">
                 <form class="form-horizontal">
                     <fieldset>
-                        <legend>EDIT</legend>
+                        <legend>{{legend}}</legend>
                         <div class="form-group">
                             <label for="inputTopic" class="col-md-2 control-label">TITLE</label>
                             <div class="col-md-10">

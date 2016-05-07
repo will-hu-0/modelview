@@ -20,12 +20,23 @@ function viewTopics(req, res) {
 function editTopic(req, res) {
     return res.render('topics/editTopic', {
         title: "Edit topic " + " | ViewModel",
+        topicName:req.params.name,
         style: common.getTheme(req)
     });
 }
 
+function newTopic(req, res) {
+    return res.render('topics/editTopic', {
+        title: "New topic " + " | ViewModel",
+        topicName: "",
+        style: common.getTheme(req)
+    });
+}
+
+
 router.get('/', viewTopics);
 router.get('/edit/:name', editTopic);
+router.get('/new', newTopic);
 router.get('/:name', viewTopic);
 
 module.exports = router;

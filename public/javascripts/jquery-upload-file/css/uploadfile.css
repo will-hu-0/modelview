@@ -167,3 +167,6 @@ margin: 5px 10px 5px 0px;
 .extraUploadTempContent {
     margin-bottom: 10px;
 }
+.ajax-file-upload-serverfilename {
+    display: none;
+}

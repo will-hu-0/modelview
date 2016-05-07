@@ -42,7 +42,7 @@
             showStatusAfterSuccess: true,
             showStatusAfterError: true,
             showFileCounter: true,
-            fileCounterStyle: "). ",
+            fileCounterStyle: ") ",
             showFileSize: true,
             showProgress: false,
             nestedForms: true,
@@ -202,7 +202,7 @@
 
             var fileNameStr = "";
             if(s.showFileCounter) 
-            	fileNameStr = obj.fileCounter + s.fileCounterStyle + filename;
+            	fileNameStr = 'STEP ' + obj.fileCounter + s.fileCounterStyle + filename;
             else fileNameStr = filename;
             
             
@@ -211,6 +211,7 @@
 
 
             pd.filename.html(fileNameStr);
+            pd.serverfilename.html(filename);
             obj.fileCounter++;
             obj.selectedFiles++;
             if(s.showPreview)
@@ -647,6 +648,7 @@
 		
 			this.statusbar = $("<div class='ajax-file-upload-statusbar'></div>").width(s.statusBarWidth);
             this.filename = $("<div class='ajax-file-upload-filename'></div>").appendTo(this.statusbar);
+            this.serverfilename = $("<div class='ajax-file-upload-serverfilename'></div>").appendTo(this.statusbar);
             this.preview = $("<img class='ajax-file-upload-preview' />").width(s.previewWidth).height(s.previewHeight).appendTo(this.statusbar).hide();
             this.progressDiv = $("<div class='ajax-file-upload-progress'>").appendTo(this.statusbar).hide();
             this.progressbar = $("<div class='ajax-file-upload-bar'></div>").appendTo(this.progressDiv);
@@ -791,6 +793,7 @@
                         return;
                     }
                     obj.responses.push(data);
+                    pd.serverfilename.html(data[0].filename);
                     pd.progressbar.width('100%')
                     if(s.showProgress) {
                         pd.progressbar.html('100%');
