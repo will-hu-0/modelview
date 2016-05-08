@@ -64,6 +64,28 @@ vServices.factory('ViewModelTopicService', ['$http', '$q', function($http, $q) {
             success(function(data, status, headers, config) { deferred.resolve(data); }).
             error(function(data, status, headers, config) { deferred.reject(data); });
             return deferred.promise;
-        }
+        },
+
+        putTopic: function(topic) {
+            var deferred = $q.defer();
+            $http({method: 'PUT',
+                url: REST_SERVICE_URI + "/topic",
+                data: topic,
+                headers: {'Content-Type': 'application/json; charset=utf-8'}}).
+            success(function(data, status, headers, config) { deferred.resolve(data); }).
+            error(function(data, status, headers, config) { deferred.reject(data); });
+            return deferred.promise;
+        },
+
+        putTopicSteps: function(topicSteps) {
+            var deferred = $q.defer();
+            $http({method: 'PUT',
+                url: REST_SERVICE_URI + "/topicstep",
+                data: topicSteps,
+                headers: {'Content-Type': 'application/json; charset=utf-8'}}).
+            success(function(data, status, headers, config) { deferred.resolve(data); }).
+            error(function(data, status, headers, config) { deferred.reject(data); });
+            return deferred.promise;
+        },
     };
 }]);

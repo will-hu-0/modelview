@@ -97,6 +97,7 @@ Array.prototype.remove = function() {
             var promise = ViewModelTopicService.queryTopic(name);
             promise.then(function(data) {
                 $scope.topic = data;
+                $scope.name = data.name;
                 $scope.title = data.title;
                 $scope.topicSteps = data.topicSteps;
                 $scope.userCase = $sce.trustAsHtml(converter.makeHtml(data.userCase));
@@ -163,6 +164,7 @@ Array.prototype.remove = function() {
         var tempFilesArray = new Array();   //Temp array for upload files
         $scope.formData = {};
         var simplemde;
+        var newTopic;
 
         // Edit topic or Create new topic
         $scope.loadEditTopic = function(name) {
@@ -172,13 +174,20 @@ Array.prototype.remove = function() {
                 var promise = ViewModelTopicService.queryTopic(name);
                 promise.then(function(data) {
                     $scope.legend = data.title;
+                    $scope.description = data.description;
+                    $scope.title = data.title;
+                    $scope.name = data.name;
+                    $scope.id = data.id;
+                    simplemde.value(data.userCase);
                     loadImageUploader(data.topicSteps, tempFilesArray);
-                }, function(data) {
-                    // Log (error) to user
+                    newTopic = false;
+                }, function(error) {
+                    console.log(error);
                 });
             } else {
                 loadImageUploader(null, tempFilesArray);
                 $scope.legend = "NEW TOPIC";
+                newTopic = true;
             }
         };
 
@@ -187,10 +196,18 @@ Array.prototype.remove = function() {
             if (!validateErrorEditTopic()) return;
             if (!passValidateWarningTopicSteps()) return;
 
+            if (!newTopic) {
+                $scope.formData.id = $scope.id;
+                $scope.formData.name = $scope.name;
+            } else {
+                $scope.formData.name = $scope.title.replace(/[^\d\w]+/g,"_");   // build name
+            }
             $scope.formData.title = $scope.title;  // build title
             $scope.formData.description = $scope.description;  // build description
-            $scope.formData.name = $scope.title.replace(/[^\d\w]+/g,"_");   // build name
             $scope.formData.userCase = simplemde.value();    // build userCase
+            //TODO status would be change to 1 when clicking DRAFT button
+            $scope.formData.status = 0; //build status, 0 is active
+            console.log($scope.formData);
             postTopic($scope.formData);
         };
 
@@ -230,19 +247,19 @@ Array.prototype.remove = function() {
             if ($('#alertWarningEditTopic').length == 0) return true;
 
             var cancelButton = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
-            var unUploadedFiles = $(".ajax-file-upload-container").find(".ajax-file-upload-cancel").length;
-            var allFiles = $(".ajax-file-upload-container").find(".form-control").length;
+            var unUploadedFiles = $(".ajax-file-upload-container").find(".ajax-file-upload-cancel").filter(":visible").length;
             if (unUploadedFiles > 0) {
-                $('#legendTopic').focus();
-                $('#alertWarningEditTopic').html(cancelButton + "Some pictures have not been uploaded yet..<br>You may ignore the warning by close it with the right button.");
-                $('#alertWarningEditTopic').show(200);
+                logAndDisplayWarning(cancelButton + "Some pictures have not been uploaded yet..<br>You may ignore the warning by closing it with the right button.");
                 return false;
             }
             return true;
         }
 
         function postTopic(topic) {
-            var promise = ViewModelTopicService.postTopic(topic);
+            var promise;
+            if (newTopic) { promise = ViewModelTopicService.postTopic(topic);}
+            else { promise = ViewModelTopicService.putTopic(topic);}
+
             promise.then(function(data) {
                 postTopicStep(data, topic.name);
             }, function(error) {
@@ -265,16 +282,35 @@ Array.prototype.remove = function() {
                 stepsArray[i].description = item.value;
             });
 
-            var promise = ViewModelTopicService.postTopicSteps(stepsArray);
+            var promise;
+            if (newTopic){
+                promise = ViewModelTopicService.postTopicSteps(stepsArray);
+                promise.then(function(data) {
+                    displaySuccessful("You have successfully submitted the topic! Directing to your masterwork...");
+                    setTimeout(function () {
+                        $(location).attr('href', '/topics/' + topicName);
+                    }, 3000);
+                }, function(error) {
+                    logAndDisplayError(error);
+                });
+            }
+            else {
+                displaySuccessful("You have successfully submitted the topic! Directing to your masterwork...");
+                setTimeout(function () {
+                    $(location).attr('href', '/topics/' + topicName);
+                }, 3000);
+            }
+
+            /*
             promise.then(function(data) {
-                displaySuccessful(data);
+                displaySuccessful("You have successfully submitted the topic!<br> Directing to your masterwork...");
                 setTimeout(function () {
                     $(location).attr('href', '/topics/' + topicName);
                 }, 3000);
             }, function(error) {
                 logAndDisplayError(error);
             });
-
+            */
         }
 
         function logAndDisplayError(error) {
@@ -284,9 +320,15 @@ Array.prototype.remove = function() {
             console.log(data);
         }
 
-        function displaySuccessful(data) {
+        function logAndDisplayWarning(warning) {
             $('#legendTopic').focus();
-            $('#alertSuccessEditTopic').html("You have successfully submitted the topic!<br> Directing to your masterwork...");
+            $('#alertWarningEditTopic').html(warning);
+            $('#alertWarningEditTopic').show(200);
+        }
+
+        function displaySuccessful(success) {
+            $('#legendTopic').focus();
+            $('#alertSuccessEditTopic').html(success);
             $('#alertSuccessEditTopic').show(200);
         }
 
@@ -409,7 +451,7 @@ Array.prototype.remove = function() {
         $.cookie('modelviewTheme','darkly', { path: '/', expires: 7 });
         window.location.reload();
     });
-    $('.navSetLight').click (function() {
+    $('#navSetLight').click (function() {
         $.cookie('modelviewTheme','united', { path: '/', expires: 7 });
         window.location.reload();
     });
