@@ -245,8 +245,8 @@ Array.prototype.remove = function() {
             var promise = ViewModelTopicService.postTopic(topic);
             promise.then(function(data) {
                 postTopicStep(data, topic.name);
-            }, function(data) {
-                // Log (error) to user
+            }, function(error) {
+                logAndDisplayError(error);
             });
         }
 
@@ -267,14 +267,28 @@ Array.prototype.remove = function() {
 
             var promise = ViewModelTopicService.postTopicSteps(stepsArray);
             promise.then(function(data) {
-                //alert('Successfully!');
-                $(location).attr('href', '/topics/' + topicName);
-            }, function(data) {
-                // Log (error) to user
+                displaySuccessful(data);
+                setTimeout(function () {
+                    $(location).attr('href', '/topics/' + topicName);
+                }, 3000);
+            }, function(error) {
+                logAndDisplayError(error);
             });
 
         }
 
+        function logAndDisplayError(error) {
+            $('#legendTopic').focus();
+            $('#alertErrorEditTopic').html("There are some issue.."+error);
+            $('#alertErrorEditTopic').show(200);
+            console.log(data);
+        }
+
+        function displaySuccessful(data) {
+            $('#legendTopic').focus();
+            $('#alertSuccessEditTopic').html("You have successfully submitted the topic!<br> Directing to your masterwork...");
+            $('#alertSuccessEditTopic').show(200);
+        }
 
         $scope.search = function() {
             search();
