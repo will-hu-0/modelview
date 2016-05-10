@@ -1,5 +1,5 @@
 /**
- * Created by will on 16-4-10.
+ * Created by will on 2016-4-10.
  */
 'use strict';
 
@@ -10,6 +10,7 @@ var viewModelApp = angular.module('viewModelApp', [
     'ngSanitize',
     'angular-loading-bar',
     'rzModule',
+    'viewModelFilters',
     'viewModelControllers',
     'vServices'
 ]);

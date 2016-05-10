@@ -1,3 +1,8 @@
+/**
+ * Created by Will on 2016-4-10.
+ * The controller for the app
+ */
+
 'use strict';
 
 // Define reverse for jquery
@@ -314,20 +319,20 @@ Array.prototype.remove = function() {
         }
 
         function logAndDisplayError(error) {
-            $('#legendTopic').focus();
+            window.scroll(0,0);
             $('#alertErrorEditTopic').html("There are some issue.."+error);
             $('#alertErrorEditTopic').show(200);
             console.log(data);
         }
 
         function logAndDisplayWarning(warning) {
-            $('#legendTopic').focus();
+            window.scroll(0,0);
             $('#alertWarningEditTopic').html(warning);
             $('#alertWarningEditTopic').show(200);
         }
 
         function displaySuccessful(success) {
-            $('#legendTopic').focus();
+            window.scroll(0,0);
             $('#alertSuccessEditTopic').html(success);
             $('#alertSuccessEditTopic').show(200);
         }

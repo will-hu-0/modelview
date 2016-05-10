@@ -1,3 +1,8 @@
+/**
+ * Created by Will on 2016-4-10.
+ * The service for the app
+ */
+
 'use strict';
 
 var vServices = angular.module('vServices', []);

@@ -17,8 +17,8 @@
                    ng-class="{'exploregrid-item-hover':hovering}" ng-mouseover="hovering=true"
                    ng-mouseleave="hovering=false" >
                     <div class="exploregrid-item-header"></div>
-                    <h4 class="exploregrid-item-title">{{topic.title}}</h4>
-                    {{topic.description}}
+                    <h4 class="exploregrid-item-title">{{topic.title  | truncate:50}}</h4>
+                    {{topic.description | truncate:80}}
                 </a>
             </div>
         </div>
