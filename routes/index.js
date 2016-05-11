@@ -10,6 +10,13 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.get('/login', function(req, res, next) {
+  res.render('login', {
+    title: 'login',
+    style: common.getTheme(req)
+  });
+});
+
 function viewEntity(req, res){
   return res.render('entities/viewEntity',{
     title: req.params.name + ' | ViewModel',
