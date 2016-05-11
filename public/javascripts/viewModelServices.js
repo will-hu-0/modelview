@@ -14,83 +14,69 @@ var mode = configs.mode;
 vServices.factory('ViewModelEntityService', ['$http', '$q', function($http, $q){
     return {
         queryEntities: function() {
-            var deferred = $q.defer();
-            $http({method: 'GET', url: mode == "demo" ? "/javascripts/sample/entities.json" : REST_SERVICE_URI + "/entities"}).
-                success(function(data, status, headers, config) { deferred.resolve(data); }).
-                error(function(data, status, headers, config) { deferred.reject(data); });
-            return deferred.promise;
+            var url = mode == "demo" ? "/javascripts/sample/entities.json" : REST_SERVICE_URI + "/entities";
+            return process(url, 'GET', null, null, $http, $q);
         },
 
         queryEntity: function(entityName) {
-            var deferred = $q.defer();
-            $http({method: 'GET', url: mode == "demo" ? "/javascripts/sample/"+entityName+".json" : REST_SERVICE_URI + "/entity/"+entityName }).
-            success(function(data, status, headers, config) { deferred.resolve(data); }).
-            error(function(data, status, headers, config) { deferred.reject(data); });
-            return deferred.promise;
+            var url = mode == "demo" ? "/javascripts/sample/"+entityName+".json" : REST_SERVICE_URI + "/entity/"+entityName;
+            return process(url, 'GET', null, null, $http, $q);
         }
     };
 }]);
 
+
 vServices.factory('ViewModelTopicService', ['$http', '$q', function($http, $q) {
     return {
         queryTopics: function() {
-            var deferred = $q.defer();
-            $http({method: 'GET', url: mode == "demo" ? "/javascripts/sample/topics.json" : REST_SERVICE_URI + "/topics"}).
-            success(function(data, status, headers, config) { deferred.resolve(data); }).
-            error(function(data, status, headers, config) { deferred.reject(data); });
-            return deferred.promise;
+            var url = mode == "demo" ? "/javascripts/sample/topics.json" : REST_SERVICE_URI + "/topics";
+            return process(url, 'GET', null, null, $http, $q);
         },
 
         queryTopic: function(name) {
-            var deferred = $q.defer();
-            $http({method: 'GET', url: mode == "demo" ? "/javascripts/sample/"+name+".json" : REST_SERVICE_URI + "/topic/"+name }).
-            success(function(data, status, headers, config) { deferred.resolve(data); }).
-            error(function(data, status, headers, config) { deferred.reject(data); });
-            return deferred.promise;
+            var url = mode == "demo" ? "/javascripts/sample/"+name+".json" : REST_SERVICE_URI + "/topic/"+name;
+            return process(url, 'GET', null, null, $http, $q);
         },
 
         postTopic: function(topic) {
-            var deferred = $q.defer();
-            $http({method: 'POST',
-                url: REST_SERVICE_URI + "/topic",
-                data: topic,
-                headers: {'Content-Type': 'application/json; charset=utf-8'}}).
-            success(function(data, status, headers, config) { deferred.resolve(data); }).
-            error(function(data, status, headers, config) { deferred.reject(data); });
-            return deferred.promise;
+            return process(REST_SERVICE_URI + "/topic",
+                'POST',
+                topic,
+                {'Content-Type': 'application/json; charset=utf-8'},
+                $http, $q);
         },
 
         postTopicSteps: function(topicSteps) {
-            var deferred = $q.defer();
-            $http({method: 'POST',
-                url: REST_SERVICE_URI + "/topicstep",
-                data: topicSteps,
-                headers: {'Content-Type': 'application/json; charset=utf-8'}}).
-            success(function(data, status, headers, config) { deferred.resolve(data); }).
-            error(function(data, status, headers, config) { deferred.reject(data); });
-            return deferred.promise;
+            return process(REST_SERVICE_URI + "/topicstep",
+                'POST',
+                topicSteps,
+                {'Content-Type': 'application/json; charset=utf-8'},
+                $http, $q);
         },
 
         putTopic: function(topic) {
-            var deferred = $q.defer();
-            $http({method: 'PUT',
-                url: REST_SERVICE_URI + "/topic",
-                data: topic,
-                headers: {'Content-Type': 'application/json; charset=utf-8'}}).
-            success(function(data, status, headers, config) { deferred.resolve(data); }).
-            error(function(data, status, headers, config) { deferred.reject(data); });
-            return deferred.promise;
+            return process(REST_SERVICE_URI + "/topic",
+                'PUT',
+                topic,
+                {'Content-Type': 'application/json; charset=utf-8'},
+                $http, $q);
         },
 
         putTopicSteps: function(topicSteps) {
-            var deferred = $q.defer();
-            $http({method: 'PUT',
-                url: REST_SERVICE_URI + "/topicstep",
-                data: topicSteps,
-                headers: {'Content-Type': 'application/json; charset=utf-8'}}).
-            success(function(data, status, headers, config) { deferred.resolve(data); }).
-            error(function(data, status, headers, config) { deferred.reject(data); });
-            return deferred.promise;
-        },
+            return process(REST_SERVICE_URI + "/topicstep",
+                'PUT',
+                topicSteps,
+                {'Content-Type': 'application/json; charset=utf-8'},
+                $http, $q);
+        }
     };
 }]);
+
+// Common http processor
+function process(url, method, data, headers, $http, $q) {
+    var deferred = $q.defer();
+    $http({method: method, url: url, data: data, headers: headers }).
+    success(function(data, status, headers, config) { deferred.resolve(data); }).
+    error(function(data, status, headers, config) { deferred.reject(data); });
+    return deferred.promise;
+}
