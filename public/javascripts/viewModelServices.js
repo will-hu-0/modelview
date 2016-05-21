@@ -11,6 +11,28 @@ var configs = JSON.parse($('#configs').val());
 var REST_SERVICE_URI = configs.serviceuri;
 var mode = configs.mode;
 
+vServices.factory('AuthenticationService', function() {
+    var auth = {
+        isAuthenticated: false,
+        isAdmin: false
+    }
+    return auth;
+});
+
+
+vServices.factory('UserService',  ['$http', '$q', function($http, $q){
+    return {
+        login: function(user) {
+            return $http.post(REST_SERVICE_URI + "/login", user);
+        },
+
+        logout: function() {
+            var url = REST_SERVICE_URI + "/logout";
+            return process(url, 'GET', null, null, $http, $q);
+        }
+    };
+}]);
+
 vServices.factory('ViewModelEntityService', ['$http', '$q', function($http, $q){
     return {
         queryEntities: function() {
@@ -24,7 +46,6 @@ vServices.factory('ViewModelEntityService', ['$http', '$q', function($http, $q){
         }
     };
 }]);
-
 
 vServices.factory('ViewModelTopicService', ['$http', '$q', function($http, $q) {
     return {

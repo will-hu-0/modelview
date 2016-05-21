@@ -25,6 +25,38 @@ Array.prototype.remove = function() {
     var viewModelControllers = angular.module('viewModelControllers',[]);
     var converter = new showdown.Converter();
 
+    // controller for user' login/logout
+    viewModelControllers.controller('userController', function($scope, $window, UserService, AuthenticationService) {
+        $scope.login = function () {
+            if ($scope.user.name != null && $scope.user.password != null) {
+                UserService.login($scope.user).success(function (data) {
+                    AuthenticationService.isAuthenticated = true;
+                    $window.sessionStorage.token = data.token;
+                    $(location).attr('href', '/');
+                }).error(function (status, data) {
+                    console.log(status);
+                    console.log(data);
+                });
+            }
+        }
+
+        $scope.logout = function logout() {
+            if (AuthenticationService.isAuthenticated) {
+                UserService.logout().success(function (data) {
+                    AuthenticationService.isAuthenticated = false;
+                    delete $window.sessionStorage.token;
+                    $location.path("/");
+                }).error(function (status, data) {
+                    console.log(status);
+                    console.log(data);
+                });
+            }
+            else {
+                $location.path("/admin/login");
+            }
+        }
+    });
+
     // controller for entity view page
     viewModelControllers.controller('entityController', function($scope, $filter, $sce, ngTableParams, cfpLoadingBar, ViewModelEntityService) {
         $scope.loadEntity = function(entityId) {
