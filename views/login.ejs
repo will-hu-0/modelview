@@ -3,8 +3,9 @@
 <% } else { %>
 <% include header_united.ejs %>
 <% } %>
-<% include ./functions/navbar.ejs %>
+
 <div class="top-content" ng-controller="userController">
+    <% include ./functions/navbar.ejs %>
     <div class="inner-bg">
         <div class="container">
             <div class="row">
@@ -29,7 +30,7 @@
                         </div>
                     </div>
                     <div class="form-bottom">
-                        <form role="form" action="" method="post" class="login-form">
+                        <form role="form" class="login-form">
                             <div class="form-group">
                                 <label class="sr-only" for="form-username">UID</label>
                                 <input type="text" name="form-username" ng-model="user.name"
@@ -41,7 +42,7 @@
                                        placeholder="Password..." class="form-password form-control" id="form-password">
                             </div>
                             <p>
-                                <button type="submit" class="btn btn-primary" ng-click="login()">LOGIN IN</button>
+                                <button class="btn btn-primary" ng-click="login()">LOGIN IN</button>
                             </p>
                         </form>
                     </div>

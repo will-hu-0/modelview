@@ -52,6 +52,11 @@ body {
   margin-bottom: 15px;
 }
 
+.nav-item-search {
+  padding-left: 10px;
+  color: #fff;
+}
+
 .breadcrumb a{
   color: #bf3e11;
 }
@@ -59,6 +64,10 @@ body {
 .breadcrumb>.current {
   color: #bf3e11;
   font-weight: bold;
+}
+
+.glyphicon-padding {
+  padding-right: 10px;
 }
 
 /* View entity page */

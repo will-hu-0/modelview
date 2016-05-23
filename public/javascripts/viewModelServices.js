@@ -11,12 +11,50 @@ var configs = JSON.parse($('#configs').val());
 var REST_SERVICE_URI = configs.serviceuri;
 var mode = configs.mode;
 
-vServices.factory('AuthenticationService', function() {
+vServices.factory('AuthenticationService', function($window) {
     var auth = {
-        isAuthenticated: false,
+        isAuthenticated: $window.sessionStorage.token != null,
         isAdmin: false
-    }
+    };
     return auth;
+});
+
+vServices.factory('TokenInterceptor', function ($q, $window, AuthenticationService) {
+    return {
+        request: function (config) {
+            config.headers = config.headers || {};
+            if ($window.sessionStorage.token) {
+                config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
+            }
+            return config;
+        },
+
+        requestError: function(rejection) {
+            return $q.reject(rejection);
+        },
+
+        /* Set Authentication.isAuthenticated to true if 200 received */
+        response: function (response) {
+            if (response != null && (response.status == 200 || response.status == 201)
+                && $window.sessionStorage.token && !AuthenticationService.isAuthenticated) {
+                AuthenticationService.isAuthenticated = true;
+            }
+            return response || $q.when(response);
+        },
+
+        /* Revoke client authentication if 401 is received */
+        responseError: function(rejection) {
+            if (rejection.status === 401) {
+                if (rejection != null && ($window.sessionStorage.token || AuthenticationService.isAuthenticated)) {
+                    delete $window.sessionStorage.token;
+                    AuthenticationService.isAuthenticated = false;
+                    $(location).attr('href', '/login');
+                }
+                $(location).attr('href', '/login');
+            }
+            return $q.reject(rejection);
+        }
+    };
 });
 
 
@@ -27,8 +65,7 @@ vServices.factory('UserService',  ['$http', '$q', function($http, $q){
         },
 
         logout: function() {
-            var url = REST_SERVICE_URI + "/logout";
-            return process(url, 'GET', null, null, $http, $q);
+            return $http.get(REST_SERVICE_URI + "/logout");
         }
     };
 }]);

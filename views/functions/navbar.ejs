@@ -23,11 +23,36 @@
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        Create <span class="caret"></span></a>
+                        VIEW <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">New Entity</a></li>
+                        <li><a href="/entities/"><i class="glyphicon glyphicon-list glyphicon-padding"></i>ENTITIES</a></li>
                         <li class="divider"></li>
-                        <li><a href="/topics/new">New Topic</a></li>
+                        <li><a href="/topics/"><i class="glyphicon glyphicon-comment glyphicon-padding"></i>TOPICS</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        CREATE <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#"><i class="glyphicon glyphicon-edit glyphicon-padding"></i>NEW ENTITY</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/topics/new/"><i class="glyphicon glyphicon-edit glyphicon-padding"></i>NEW TOPIC</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <i class="glyphicon glyphicon-user"></i> <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#"><i class="glyphicon glyphicon-cog glyphicon-padding"></i>SETTINGS</a></li>
+                        <li class="divider"></li>
+                        <li ng-show="!isLogout">
+                            <a href="#" ng-click="logout()"><i class="glyphicon glyphicon-off glyphicon-padding"></i>LOGOUT</a>
+                        </li>
+                        <li ng-show="isLogout">
+                            <a href="/login"><i class="glyphicon glyphicon-log-in glyphicon-padding"></i>LOGIN</a>
+                        </li>
                     </ul>
                 </li>
             </ul>
@@ -35,7 +60,9 @@
                 <div class="form-group">
                     <input id="txtQueryEntity" ng-model="collectionFilter" type="text" class="form-control" placeholder="Search something..">
                 </div>
-                <button class="btn btn-default" ng-click="search()">SEARCH</button>
+                <div class="form-group nav-item-search">
+                    <i class="glyphicon glyphicon-search " ng-click="search()"></i>
+                </div>
             </form>
         </div>
     </div>

@@ -25,8 +25,9 @@ Array.prototype.remove = function() {
     var viewModelControllers = angular.module('viewModelControllers',[]);
     var converter = new showdown.Converter();
 
-    // controller for user' login/logout
+    // controller for user's login/logout
     viewModelControllers.controller('userController', function($scope, $window, UserService, AuthenticationService) {
+        $scope.isLogout = true;
         $scope.login = function () {
             if ($scope.user.name != null && $scope.user.password != null) {
                 UserService.login($scope.user).success(function (data) {
@@ -40,25 +41,15 @@ Array.prototype.remove = function() {
             }
         }
 
-        $scope.logout = function logout() {
-            if (AuthenticationService.isAuthenticated) {
-                UserService.logout().success(function (data) {
-                    AuthenticationService.isAuthenticated = false;
-                    delete $window.sessionStorage.token;
-                    $location.path("/");
-                }).error(function (status, data) {
-                    console.log(status);
-                    console.log(data);
-                });
-            }
-            else {
-                $location.path("/admin/login");
-            }
+        $scope.logout = function() {
+            funcLogout(AuthenticationService, UserService, $window);
         }
     });
 
+
     // controller for entity view page
-    viewModelControllers.controller('entityController', function($scope, $filter, $sce, ngTableParams, cfpLoadingBar, ViewModelEntityService) {
+    viewModelControllers.controller('entityController', function($scope, $filter, $sce, ngTableParams, cfpLoadingBar,
+                                             ViewModelEntityService, $window, UserService, AuthenticationService) {
         $scope.loadEntity = function(entityId) {
             cfpLoadingBar.start();
             var promise = ViewModelEntityService.queryEntity(entityId);
@@ -100,10 +91,14 @@ Array.prototype.remove = function() {
         $scope.search = function() {
             search();
         };
+        $scope.logout = function() {
+            funcLogout(AuthenticationService, UserService, $window);
+        }
     });
 
     // controller for entities page
-    viewModelControllers.controller('entitiesController', function($scope, cfpLoadingBar, ViewModelEntityService) {
+    viewModelControllers.controller('entitiesController', function($scope, cfpLoadingBar, ViewModelEntityService,
+                                                                   $window, UserService, AuthenticationService) {
         cfpLoadingBar.start()
         $scope.loadEntities = function() {
             var promise = ViewModelEntityService.queryEntities();
@@ -121,12 +116,16 @@ Array.prototype.remove = function() {
             search();
         };
         $scope.go = function (path) {
-            $(location).attr('href', path);
+            $(location).attr('href', path.indexOf("entities") >=0 ? path : "/entities/"+path);
+        };
+        $scope.logout = function() {
+            funcLogout(AuthenticationService, UserService, $window);
         }
     });
 
     // controller for view topic page
-    viewModelControllers.controller('viewTopicController', function($scope, $sce, cfpLoadingBar, ViewModelTopicService) {
+    viewModelControllers.controller('viewTopicController', function($scope, $sce, cfpLoadingBar, ViewModelTopicService,
+                                                                    $window, UserService, AuthenticationService) {
         cfpLoadingBar.start();
         var stepCount = 0;
 
@@ -176,10 +175,14 @@ Array.prototype.remove = function() {
         $scope.search = function() {
             search();
         };
+        $scope.logout = function() {
+            funcLogout(AuthenticationService, UserService, $window);
+        }
     });
 
     // controller for topics page
-    viewModelControllers.controller('topicsController', function($scope, cfpLoadingBar, ViewModelTopicService) {
+    viewModelControllers.controller('topicsController', function($scope, cfpLoadingBar, ViewModelTopicService,
+                                                                 $window, UserService, AuthenticationService) {
         cfpLoadingBar.start()
         $scope.loadTopics = function() {
             var promise = ViewModelTopicService.queryTopics();
@@ -192,11 +195,15 @@ Array.prototype.remove = function() {
         $scope.search = function() {
             search();
         };
+        $scope.logout = function() {
+            funcLogout(AuthenticationService, UserService, $window);
+        }
     });
 
 
     // controller for edit topic page
-    viewModelControllers.controller('editTopicController', function($scope, $http, cfpLoadingBar, ViewModelTopicService) {
+    viewModelControllers.controller('editTopicController', function($scope, $http, cfpLoadingBar, ViewModelTopicService,
+                                                                    $window, UserService, AuthenticationService) {
         cfpLoadingBar.start();
         var tempFilesArray = new Array();   //Temp array for upload files
         $scope.formData = {};
@@ -237,7 +244,8 @@ Array.prototype.remove = function() {
                 $scope.formData.id = $scope.id;
                 $scope.formData.name = $scope.name;
             } else {
-                $scope.formData.name = $scope.title.replace(/[^\d\w]+/g,"_");   // build name
+                var tempTopicName = $scope.title.replace(/[^\d\w]+/g,"_");   // build name
+                $scope.formData.name = tempTopicName.substring(0, tempTopicName.lastIndexOf("_"));
             }
             $scope.formData.title = $scope.title;  // build title
             $scope.formData.description = $scope.description;  // build description
@@ -247,6 +255,10 @@ Array.prototype.remove = function() {
             console.log($scope.formData);
             postTopic($scope.formData);
         };
+
+        $scope.logout = function() {
+            funcLogout(AuthenticationService, UserService, $window);
+        }
 
         function validateErrorEditTopic() {
             var alertMsg = "";
@@ -286,7 +298,8 @@ Array.prototype.remove = function() {
             var cancelButton = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
             var unUploadedFiles = $(".ajax-file-upload-container").find(".ajax-file-upload-cancel").filter(":visible").length;
             if (unUploadedFiles > 0) {
-                logAndDisplayWarning(cancelButton + "Some pictures have not been uploaded yet..<br>You may ignore the warning by closing it with the right button.");
+                logAndDisplayWarning(cancelButton + "Some pictures have not been uploaded yet.." +
+                    "<br>You may ignore the warning by closing it with the right button.");
                 return false;
             }
             return true;
@@ -442,7 +455,8 @@ Array.prototype.remove = function() {
     });
 
     // controller for home
-    viewModelControllers.controller('homeController', function($scope, $http, cfpLoadingBar) {
+    viewModelControllers.controller('homeController', function($scope, $http, cfpLoadingBar
+                                                        , $window, UserService, AuthenticationService) {
         cfpLoadingBar.start();
         $scope.loadHome = function() {
             var contributionUrl = "/javascripts/sample/datas-years.json";
@@ -469,6 +483,9 @@ Array.prototype.remove = function() {
                 scale: [40, 60, 80, 100]
             });
         };
+        $scope.logout = function() {
+            funcLogout(AuthenticationService, UserService, $window);
+        }
     })
 
     /* Define the onclick event of search textbox in the nav bar */
@@ -484,6 +501,24 @@ Array.prototype.remove = function() {
         }
     }
 
+    /* The function is to handle logout */
+    function funcLogout(AuthenticationService, UserService, window) {
+        if (AuthenticationService.isAuthenticated) {
+            UserService.logout().success(function (data) {
+                AuthenticationService.isAuthenticated = false;
+                delete window.sessionStorage.token;
+                $(location).attr('href', '/login');
+            }).error(function (status, data) {
+                console.log(status);
+                console.log(data);
+            });
+        }
+        else {
+            $(location).attr('href', '/login');
+        }
+    };
+
+    /* The function is to set theme */
     $('#navSetDark').click (function() {
         $.cookie('modelviewTheme','darkly', { path: '/', expires: 7 });
         window.location.reload();
@@ -493,10 +528,12 @@ Array.prototype.remove = function() {
         window.location.reload();
     });
 
+    /* The function is to set carousel for topics */
     $('.carousel').carousel({
         interval: false
     });
 
+    /* The function is to make pop over window active */
     $("[data-toggle='popover']").popover();
 
     function getIEVersion() {

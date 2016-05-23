@@ -53,12 +53,21 @@ body {
   margin-bottom: 15px;
 }
 
+.nav-item-search {
+  padding-left: 10px;
+  color: #0ce3ac;
+}
+
 .breadcrumb a{
   color: #0ce3ac;
 }
 
 .breadcrumb>.current {
   font-weight: bold;
+}
+
+.glyphicon-padding {
+  padding-right: 10px;
 }
 
 

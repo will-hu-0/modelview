@@ -6,9 +6,9 @@
  * http://hayageek.com/
  */
 (function ($) {
+
     if($.fn.ajaxForm == undefined) {
-        //$.getScript(("https:" == document.location.protocol ? "https://" : "http://") + "malsup.github.io/jquery.form.js");
-        $.getScript("/javascripts/repository/jquery.form.js");
+        $.getScript(("https:" == document.location.protocol ? "https://" : "http://") + "malsup.github.io/jquery.form.js");
     }
     var feature = {};
     feature.fileapi = $("<input type='file'/>").get(0).files !== undefined;
