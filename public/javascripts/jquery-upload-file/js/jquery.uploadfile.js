@@ -8,6 +8,7 @@
 (function ($) {
 
     if($.fn.ajaxForm == undefined) {
+        //TODO it would throw exception if use local script??
         $.getScript(("https:" == document.location.protocol ? "https://" : "http://") + "malsup.github.io/jquery.form.js");
     }
     var feature = {};
