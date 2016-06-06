@@ -1,10 +1,10 @@
 {
-  "entityName":"SC_Job",
-  "entityTable":"DD_Job",
+  "entityName":"Jet",
+  "entityTable":"DD_Jet",
   "entityColumns":[
     { "columnName":"AAA14", "columnType":"VARCHAR", "columnDescription":"DDCC" },
     { "columnName":"AAA26", "columnType":"VARCHAR", "columnDescription":"DDCC" },
-    { "columnName":"Policy", "columnType":"Policy", "columnDescription":"BBBB" },
+    { "columnName":"Pet", "columnType":"Pet", "columnDescription":"BBBB" },
     { "columnName":"AAA4", "columnType":"Type1", "columnDescription":"CCCC" },
     { "columnName":"AAA5", "columnType":"Type1", "columnDescription":"FFFF" },
     { "columnName":"AAA6", "columnType":"Type1", "columnDescription":"G" },
@@ -13,7 +13,7 @@
     { "columnName":"AAA11", "columnType":"Type1", "columnDescription":"G" },
     { "columnName":"AAA12", "columnType":"Type2", "columnDescription":"I" },
     { "columnName":"AAA12", "columnType":"Type2", "columnDescription":"T" },
-    { "columnName":"Claim", "columnType":"Claim", "columnDescription":"The job" },
+    { "columnName":"Cat", "columnType":"Cat", "columnDescription":"The job" },
     { "columnName":"AAA12", "columnType":"VARCHAR", "columnDescription":"NY" },
     { "columnName":"AAA42", "columnType":"VARCHAR", "columnDescription":"NY" },
     { "columnName":"AAA12", "columnType":"Type2", "columnDescription":"TT" },
@@ -22,12 +22,12 @@
     { "columnName":"AAA123", "columnType":"Type2", "columnDescription":"SSDe" },
     { "columnName":"CreateTime", "columnType":"DATETIME", "columnDescription":"Newe" },
     { "columnName":"AAAB", "columnType":"Type2", "columnDescription":"Tabe" },
-    { "columnName":"AAAB", "columnType":"Type2", "columnDescription":"The claim" },
-    { "columnName":"AAAC", "columnType":"Type2", "columnDescription":"The claim" },
+    { "columnName":"AAAB", "columnType":"Type2", "columnDescription":"The Cat" },
+    { "columnName":"AAAC", "columnType":"Type2", "columnDescription":"The Cat" },
     { "columnName":"AAAD", "columnType":"Type2", "columnDescription":"The job" }
   ],
   "businessValue":"<p>Provides cover for loss or damage to your investment property with inclusions such as loss of rent cover following an insured event and cover for most types of flood and water damage as standard.</p><p>Provides cover for strata, body corporate or community titled residential buildings at the insured address including common areas such as garages, pathways and swimming pools. You can also add cover for common contents contained within the common areas of your building.</p>",
-  "entityPath":"Claim -> SC_Job",
+  "entityPath":"Cat -> Jet",
   "entityBuilder":"<pre><code class='javascript'>(function() {\r\n  \"use strict\";\r\n  var app = angular.module(\"myApp\", [\"ngTable\", \"ngTableDemos\"]);\r\n  app.controller(\"demoController\", demoController);\r\n  demoController.$inject = [\"NgTableParams\", \"ngTableSimpleMediumList\"];\r\n  function demoController(NgTableParams, simpleList) {\r\n    this.defaultConfigTableParams = new NgTableParams({}, { dataset: simpleList});\r\n    this.customConfigParams = createUsingFullOptions();\r\n\r\n    function createUsingFullOptions() {\r\n      var initialParams = {\r\n        count: 5 // initial page size\r\n      };\r\n      return new NgTableParams(initialParams, initialSettings);\r\n    }\r\n  }\r\n})();</code></pre>",
-  "existEntities":"Claim,Policy,SC_Job"
+  "existEntities":"Cat,Pet,Jet"
 }

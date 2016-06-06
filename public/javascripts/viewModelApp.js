@@ -29,6 +29,6 @@ viewModelApp.run(function($rootScope, $location, $window, AuthenticationService)
         //redirect only if both isAuthenticated is false and no token is set
         if (!AuthenticationService.isAuthenticated && !$window.sessionStorage.token
             && window.location.pathname != "/login") {
-            $(location).attr('href', '/login');
+            //$(location).attr('href', '/login');
         }
 });

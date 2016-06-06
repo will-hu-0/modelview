@@ -15,18 +15,18 @@
     "description": "You may learn how to use Django with nginx. Faster than your imagination!"
   },
   {
-    "name": "how_to_cancel_the_payment",
-    "title": "How to cancel the payment?",
-    "description": "You may learn how to cancel the payment even you are not qualified."
+    "name": "how_to_use_jdk",
+    "title": "How to use JDK?",
+    "description": "You may learn how to use JDK with nginx. Faster than your imagination!"
   },
   {
-    "name": "how_to_delete_the_payment",
-    "title": "How to delete the payment?",
-    "description": "You may learn how to cancel the payment even you are not qualified."
+    "name": "how_to_use_cache",
+    "title": "How to use Cache?",
+    "description": "You may learn how to use Stack with Cache. Faster than your imagination!"
   },
   {
-    "name": "how_to_void_the_payment",
-    "title": "How to void the payment?",
-    "description": "You may learn how to cancel the payment even you are not qualified."
+    "name": "how_to_use_stack",
+    "title": "How to use Stack?",
+    "description": "You may learn how to use Stack with nginx. Faster than your imagination!"
   }
 ]

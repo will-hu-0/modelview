@@ -1,10 +1,10 @@
 {
-  "entityName":"Claim",
-  "entityTable":"XX_Claim",
+  "entityName":"Cat",
+  "entityTable":"XX_Cat",
   "entityColumns":[
     { "columnName":"AAA155", "columnType":"VARCHAR", "columnDescription":"DDCC" },
     { "columnName":"AAA24", "columnType":"VARCHAR", "columnDescription":"DDCC" },
-    { "columnName":"Policy", "columnType":"Policy", "columnDescription":"BBBB" },
+    { "columnName":"Pet", "columnType":"Pet", "columnDescription":"BBBB" },
     { "columnName":"AAA4", "columnType":"Type1", "columnDescription":"CCCC" },
     { "columnName":"AAA5", "columnType":"Type1", "columnDescription":"FFFF" },
     { "columnName":"AAA6", "columnType":"Type1", "columnDescription":"G" },
@@ -13,7 +13,7 @@
     { "columnName":"AAA11", "columnType":"Type1", "columnDescription":"G" },
     { "columnName":"AAA12", "columnType":"Type2", "columnDescription":"I" },
     { "columnName":"AAA12", "columnType":"Type2", "columnDescription":"T" },
-    { "columnName":"SC_Job", "columnType":"SC_Job", "columnDescription":"The job" },
+    { "columnName":"Jet", "columnType":"Jet", "columnDescription":"The job" },
     { "columnName":"AAA12", "columnType":"VARCHAR", "columnDescription":"NY" },
     { "columnName":"AAA42", "columnType":"VARCHAR", "columnDescription":"NY" },
     { "columnName":"AAA12", "columnType":"Type2", "columnDescription":"TT" },
@@ -27,7 +27,7 @@
     { "columnName":"AAAD", "columnType":"Type2", "columnDescription":"The job" }
   ],
   "businessValue":"Having an accident or enduring a catastrophe can be a very stressful thing\r----------------------------------------------------------------------------\r >but we don't think reporting an insurance claim should be.         \rYou can report a claim online in a matter of minutes.\rThe State Farm® claims reporting process is quick and easy.</br>        \rDo you have a State Farm Auto or Property policy? If so, sign into your account to report a claim. If you don't have an account, registering as a State Farm customer is quick and easy. If you are not a State Farm policyholder, you can report a claim by calling 800-STATE-FARM (800-782-8332) 24 hours a day, 7 days a week.</br>  Once you log in and submit your claim, a State Farm claims representative will contact you as soon as possible to verify information, ask questions, explain coverage, and process the claim.</br>",
-  "entityPath":"Claim -> Policy -> Brand -> TypeList",
+  "entityPath":"Cat -> Pet -> Brand -> AAA",
   "entityBuilder":"<pre><code class='java'>public class ClassLazyTypeResolver extends LazyTypeResolver {\\r  // Predefined resolvers for frequently used classes\r  public static final ClassLazyTypeResolver Object = new ClassLazyTypeResolver( Object.class );\r  public static final ClassLazyTypeResolver String = new ClassLazyTypeResolver( String.class );\r  ... // many more\r \r  private final Class _class;\r \r  public ClassLazyTypeResolver( Class type ) {\r    _class = type;\r  }\r  \r  @Override\r  protected IType init() {\r    return TypeSystem.get( _class );\r  }\r  public static java.lang.String getCachedcolumnName( Class cls ) {\r    String columnName = cls.getSimpleName();\r    try {\r      for( Field f: ClassLazyTypeResolver.class.getDeclaredFields() ) {\r        if( f.getName().equals( columnName ) && ((ClassLazyTypeResolver)f.get( null ))._class == cls ) {\r          return columnName;\r        }\r      }\r      return null;\r    }\r\n    catch( IllegalAccessException e ) {\r      throw new RuntimeException( e );\r    }\r  }\r}</code></pre>",
-  "existEntities":"Claim,Policy,SC_Job"
+  "existEntities":"Cat,Pet,Jet"
 }

@@ -1,7 +1,7 @@
 [
-  { "entityName":"Policy", "views":380, "likes":12, "owner":"James Cai" },
-  { "entityName":"Claim", "views":350, "likes":12, "owner":"Will Hu" },
-  { "entityName":"SC_Job", "views":227, "likes":10, "owner":"Joseph Li" },
+  { "entityName":"Pet", "views":380, "likes":12, "owner":"James Cai" },
+  { "entityName":"Cat", "views":350, "likes":12, "owner":"Will Hu" },
+  { "entityName":"Jet", "views":227, "likes":10, "owner":"Joseph Li" },
   { "entityName":"Game", "views":77, "likes":4, "owner":"Estella" },
   { "entityName":"Family", "views":32, "likes":5, "owner":"Atkins Luke" },
   { "entityName":"Company", "views":10, "likes":5, "owner":"Phil Jeffery" },

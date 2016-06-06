@@ -1,10 +1,10 @@
 {
-  "entityName":"Policy",
-  "entityTable":"XX_Policy",
+  "entityName":"Pet",
+  "entityTable":"XX_Pet",
   "entityColumns":[
     { "columnName":"AAA12", "columnType":"VARCHAR", "columnDescription":"DDCC" },
     { "columnName":"AAA25", "columnType":"VARCHAR", "columnDescription":"DDCC" },
-    { "columnName":"Claim", "columnType":"Claim", "columnDescription":"BBBB" },
+    { "columnName":"Cat", "columnType":"Cat", "columnDescription":"BBBB" },
     { "columnName":"AAA4", "columnType":"Type1", "columnDescription":"CCCC" },
     { "columnName":"AAA5", "columnType":"Type1", "columnDescription":"FFFF" },
     { "columnName":"AAA6", "columnType":"Type1", "columnDescription":"G" },
@@ -13,7 +13,7 @@
     { "columnName":"AAA11", "columnType":"Type1", "columnDescription":"G" },
     { "columnName":"AAA12", "columnType":"Type2", "columnDescription":"I" },
     { "columnName":"AAA12", "columnType":"Type2", "columnDescription":"T" },
-    { "columnName":"SC_Job", "columnType":"SC_Job", "columnDescription":"The job" },
+    { "columnName":"Jet", "columnType":"Jet", "columnDescription":"The job" },
     { "columnName":"AAA12", "columnType":"VARCHAR", "columnDescription":"NY" },
     { "columnName":"AAA42", "columnType":"VARCHAR", "columnDescription":"NY" },
     { "columnName":"AAA12", "columnType":"Type2", "columnDescription":"TT" },
@@ -22,12 +22,12 @@
     { "columnName":"AAA123", "columnType":"Type2", "columnDescription":"SSDe" },
     { "columnName":"CreateTime", "columnType":"DATETIME", "columnDescription":"Newe" },
     { "columnName":"AAAB", "columnType":"Type2", "columnDescription":"Tabe" },
-    { "columnName":"AAAB", "columnType":"Type2", "columnDescription":"The claim" },
-    { "columnName":"AAAC", "columnType":"Type2", "columnDescription":"The claim" },
+    { "columnName":"AAAB", "columnType":"Type2", "columnDescription":"The Cat" },
+    { "columnName":"AAAC", "columnType":"Type2", "columnDescription":"The Cat" },
     { "columnName":"AAAD", "columnType":"Type2", "columnDescription":"The job" }
   ],
   "businessValue":"<p>For Policy perspective, we offer many more built-in car insurance discounts, such as safe driver, pay-in-full, multi-car, etc.</p><p>You'll automatically get these during your auto insurance quote no matter if you buy online or on the phone.</p><p>Just get a free car insurance quote, and we'll find all these savings for you. You won't have to do or say anything else. Easy.</p>",
-  "entityPath":"Claim -> Policy -> Brand -> TypeList",
+  "entityPath":"Cat -> Jet -> AngularJS",
   "entityBuilder":"<pre><code class='java'>public class ClassLazyTypeResolver extends LazyTypeResolver {\r  // Predefined resolvers for frequently used classes\r  public static final ClassLazyTypeResolver Object = new ClassLazyTypeResolver( Object.class );\r  public static final ClassLazyTypeResolver String = new ClassLazyTypeResolver( String.class );\r  ... // many more\r \r  private final Class _class;\r \r  public ClassLazyTypeResolver( Class type ) {\r    _class = type;\r  }\r  \r  @Override\r  protected IType init() {\r    return TypeSystem.get( _class );\r  }\r  public static java.lang.String getCachedcolumnName( Class cls ) {\r    String columnName = cls.getSimpleName();\r    try {\r      for( Field f: ClassLazyTypeResolver.class.getDeclaredFields() ) {\r        if( f.getName().equals( columnName ) && ((ClassLazyTypeResolver)f.get( null ))._class == cls ) {\r          return columnName;\r        }\r      }\r      return null;\r    }\r\n    catch( IllegalAccessException e ) {\r      throw new RuntimeException( e );\r    }\r  }\r}</code></pre>",
-  "existEntities":"Claim,Policy,SC_Job"
+  "existEntities":"Cat,Pet,Jet"
 }

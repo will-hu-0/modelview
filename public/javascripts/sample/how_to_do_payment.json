@@ -7,17 +7,17 @@
     {
       "stepId": 0,
       "shortDescription": "0Go to menu and open Ready to pay.",
-      "screenShotUrl": "/uploads/1"
+      "screenShotUrl": "../javascripts/sample/1.jpg"
     },
     {
       "stepId": 1,
       "shortDescription": "1Go to menu and open Ready to pay.",
-      "screenShotUrl": "/uploads/2"
+      "screenShotUrl": "../javascripts/sample/2.jpg"
     },
     {
       "stepId": 2,
       "shortDescription": "2Go to menu and open Ready to pay.",
-      "screenShotUrl": "/uploads/3"
+      "screenShotUrl": "../javascripts/sample/3.jpg"
     }
   ]
 }

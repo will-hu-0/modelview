@@ -61,7 +61,11 @@ vServices.factory('TokenInterceptor', function ($q, $window, AuthenticationServi
 vServices.factory('UserService',  ['$http', '$q', function($http, $q){
     return {
         login: function(user) {
-            return $http.post(REST_SERVICE_URI + "/login", user);
+            if (mode == "demo") {
+                return $http.get("/javascripts/sample/token.json");
+            } else {
+                return $http.post(REST_SERVICE_URI + "/login", user);
+            }
         },
 
         logout: function() {

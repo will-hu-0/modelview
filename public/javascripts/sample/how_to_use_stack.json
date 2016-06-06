@@ -1,0 +1,43 @@
+{
+  "name": "how_to_use_angularjs",
+  "title": "How to use AngularJS UI Bootstrap with ASP.NET MVC?",
+  "description": "You may learn how to use AngularJS in the ASP.NET MVC.",
+  "userCase": "<p>1.Developer authors the component code</p><p>2.Pass component Type with Metadata to compiler</p><p>3.Compiler returns ProtoView (via Promise)</p><p>4.Create ViewFactory from ProtoView (maybe)</p><p>5.Use ProtoView/ViewFactory to instantiate Views</p>",
+  "topicSteps":[
+    {
+      "stepId": 0,
+      "shortDescription": "Entity data model, build the project",
+      "screenShotUrl": "../javascripts/sample/5.jpg"
+    },
+    {
+      "stepId": 1,
+      "shortDescription": "Initialise the gallery.",
+      "screenShotUrl": "../javascripts/sample/6.jpg"
+    },
+    {
+      "stepId": 2,
+      "shortDescription": "Instlling packages...",
+      "screenShotUrl": "../javascripts/sample/7.jpg"
+    },
+    {
+      "stepId": 3,
+      "shortDescription": "Code on service sstepIde controller...",
+      "screenShotUrl": "../javascripts/sample/8.jpg"
+    },
+    {
+      "stepId": 4,
+      "shortDescription": "View, do you know how to build the view?",
+      "screenShotUrl": "../javascripts/sample/9.jpg"
+    },
+    {
+      "stepId": 5,
+      "shortDescription": "See the output.",
+      "screenShotUrl": "../javascripts/sample/10.jpg"
+    },
+    {
+      "stepId": 6,
+      "shortDescription": "We may download the code as well...",
+      "screenShotUrl": "../javascripts/sample/11.jpg"
+    }
+  ]
+}
